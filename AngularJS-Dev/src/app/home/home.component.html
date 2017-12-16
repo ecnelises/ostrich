@@ -1,0 +1,15 @@
+<div droppable (onDrop)="onErrorMoveDrop($event)" [dropScope]="'move'" >
+
+  <div class="button-col">
+    <input type="text" class="txt" placeholder="Life goal.." [(ngModel)]="inputContent">
+    <button *ngFor="let task of tasks; let i = index" id="button{{i}}" (click)="addItems($event)">{{titles[i]}}</button>
+  </div>
+
+  <div *ngFor="let task of tasks; let i = index" [@tasks]="{{task.length}}" class="task-column" id="{{i}}" droppable (onDrop)="onMoveDrop($event)" [dropScope]="'move'">
+    <h1> {{titles[i]}} </h1>
+    <div *ngFor="let item of task; let j = index" class="item" (dblclick)="removeItems($event)" draggable dragData="{{item}}" (onDrag)="onMoveDrag($event)" [dragScope]="'move'">
+      {{item.content}}
+    </div>
+  </div>
+
+</div>
