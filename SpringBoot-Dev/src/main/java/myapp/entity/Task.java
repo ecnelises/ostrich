@@ -12,6 +12,14 @@ public class Task
         return id;
     }
 
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
     public boolean isDone() {
         return isDone;
     }
@@ -57,6 +65,9 @@ public class Task
     private long id;
 
     @Column(nullable = false)
+    private int priority;
+
+    @Column(nullable = false)
     private boolean isDone;
 
     @Column(nullable = false)
@@ -72,15 +83,16 @@ public class Task
     private String ancestorIds; //todo
 
     public Task(){
-        this(false, new Date(), 0, "demo", "");
+
     }
 
     public Task(int columnId, String content) {
-        this(false, new Date(), columnId, content, "");
+        this(false, 1, new Date(), columnId, content, "");
     }
 
-    public Task(boolean isDone, Date updated,int columnId, String content, String ancestorIds) {
+    public Task(boolean isDone,int priority, Date updated,int columnId, String content, String ancestorIds) {
         this.isDone = isDone;
+        this.priority = priority;
         this.updated = updated;
         this.ancestorIds = ancestorIds;
         this.columnId = columnId;
@@ -89,6 +101,7 @@ public class Task
 
     public String toJSON(){
         return "{" + "\"id\":\"" + this.getId() +
+                "\", \"priority\":\"" + this.getPriority() +
                 "\", \"isDone\":\"" + this.isDone() +
                 "\", \"content\":\"" + this.getContent() +
                 "\", \"columnId\":\"" + this.getColumnId() +

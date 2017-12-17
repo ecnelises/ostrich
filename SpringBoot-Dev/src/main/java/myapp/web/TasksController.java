@@ -42,6 +42,14 @@ public class TasksController {
         return tmp.toJSON();
     }
 
+    @RequestMapping("/tasks/priority")
+    public String setPriority(@RequestParam(name = "id")Long id, @RequestParam(name = "priority")int priority) {
+        Task tmp = tasksRepository.findOne(id);
+        tmp.setPriority(priority);
+        tasksRepository.save(tmp);
+        return tmp.toJSON();
+    }
+
     @RequestMapping("/tasks/findOne")
     public String find(@RequestParam(name = "id")Long id) {
         return tasksRepository.findOne(id).toJSON();

@@ -35,7 +35,7 @@ exports = module.exports = __webpack_require__("../../../../_css-loader@0.28.7@c
 
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n* {\n  padding: 0px;\n  margin: 0px;\n  box-sizing: border-box;\n}\n\nhtml, body {\n  height: 100%;\n  width: 100%;\n  font-family: Helvetica Neue,PingFang SC,Microsoft Yahei;\n}\n\napp-root {\n  height: 100%;\n  width: 100%;\n}\n\na {\n  cursor: pointer;\n  color: black;\n  text-decoration: none;\n}\n\n\na:hover {\n  text-decoration: none;\n}\n\n", ""]);
 
 // exports
 

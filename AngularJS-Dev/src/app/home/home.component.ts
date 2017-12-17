@@ -8,52 +8,22 @@ import { HomeService } from './home.service'
   styleUrls: ['./home.component.css'],
   providers: [HomeService],
   animations: [
-    trigger('input', [
-      transition('* => *', [
-        query(':enter', style({ opacity: 0 }), {optional: true}),
-        query(':enter', stagger('300ms', [
-          animate('.6s ease-in', keyframes([
-            style({opacity: 0, transform: 'translateY(-75%)', offset: 0}),
-            style({opacity: .5, transform: 'translateY(35px)',  offset: 0.3}),
-            style({opacity: 1, transform: 'translateY(0)',     offset: 1.0}),
-          ]))]), {optional: true})
-        ,
-        query(':leave', stagger('300ms', [
-          animate('.6s ease-out', keyframes([
-            style({opacity: 1, transform: 'translateY(0)', offset: 0}),
-            style({opacity: .5, transform: 'translateY(35px)',  offset: 0.3}),
-            style({opacity: 0, transform: 'translateY(-75%)',     offset: 1.0}),
-          ]))]), {optional: true})
-      ])
-    ]),
     trigger('tasks', [
       transition('* => *', [
         query(':enter', style({ opacity: 0 }), {optional: true}),
         query(':enter', stagger('300ms', [
           animate('.6s ease-in', keyframes([
-            style({opacity: 0, transform: 'translateY(-75%)', offset: 0}),
-            style({opacity: .5, transform: 'translateY(35px)',  offset: 0.3}),
-            style({opacity: 1, transform: 'translateY(0)',     offset: 1.0}),
+            style({opacity: 0, transform: 'translateX(-75%)', offset: 0}),
+            style({opacity: .5, transform: 'translateX(35px)',  offset: 0.3}),
+            style({opacity: 1, transform: 'translateX(0)',     offset: 1.0}),
           ]))]), {optional: true}),
         query(':leave', stagger('300ms', [
           animate('.6s ease-out', keyframes([
-            style({opacity: 1, transform: 'translateY(0)', offset: 0}),
-            style({opacity: .5, transform: 'translateY(35px)',  offset: 0.3}),
-            style({opacity: 0, transform: 'translateY(-75%)',     offset: 1.0}),
+            style({opacity: 1, transform: 'translateX(0)', offset: 0}),
+            style({opacity: .5, transform: 'translateX(-35px)',  offset: 0.3}),
+            style({opacity: 0, transform: 'translateX(75%)',     offset: 1.0}),
           ]))]), {optional: true})
       ])
-    ]),
-    trigger('addState', [
-      state('inactive', style({
-        backgroundColor: '#eee',
-        transform: 'scale(1)'
-      })),
-      state('active',   style({
-        backgroundColor: '#cfd8dc',
-        transform: 'scale(1.1)'
-      })),
-      transition('inactive => active', animate('100ms ease-in')),
-      transition('active => inactive', animate('100ms ease-out'))
     ]),
     ]
 })
@@ -62,6 +32,10 @@ export class HomeComponent implements OnInit {
 
   movedItem:any;
   movedItemIndex = [];
+
+  addedItemColumn: number;
+  displayedItem: any;
+  changedPriorityItem = [];
 
   lock:boolean = false;
 
@@ -73,7 +47,8 @@ export class HomeComponent implements OnInit {
   constructor(private homeService:HomeService) { }
 
   ngOnInit() {
-    this.homeService.getData().then((res) => {
+    this.homeService.getData()
+      .then((res) => {
         for (var i = 0; i < res['tasks'].length; i++) {
           this.tasks[res['tasks'][i]['columnId']].push(res['tasks'][i]);
         }
@@ -82,12 +57,13 @@ export class HomeComponent implements OnInit {
   }
 
   addItems($event) {
-    var index = $event.target.id.replace("button", "");
     if (this.inputContent != ""){
-      this.homeService.addItem(index, this.inputContent)
+      this.homeService.addItem(this.addedItemColumn, this.inputContent)
         .then(res => {
-          this.tasks[index].push(res);
+          this.tasks[this.addedItemColumn].push(res);
           this.inputContent = "";
+          this.addedItemColumn = null;
+          document.getElementById('create-new-form').style.display = 'none';
         });
     }
   }
@@ -151,6 +127,58 @@ export class HomeComponent implements OnInit {
       this.movedItemIndex.push(index, columnIndex);
       console.log(this.movedItemIndex, this.movedItem);
       this.tasks[columnIndex].splice(index, 1);
+    }
+  }
+
+  addNewTask(e: any) {
+    this.addedItemColumn = e.target.parentNode.id;
+    document.getElementById('create-new-form').style.display = 'block';
+  }
+
+  hideThisForm(e: any){
+    e.target.style.display = 'none';
+  }
+
+  notHideThisForm(e: any){
+    e.stopPropagation();
+  }
+
+  changeIsDoneState(e: any) {
+    e.stopPropagation();
+    let columnIndex = e.target.parentNode.parentNode.id;
+    let index = this.findIndexOfParentNode(e.target.parentNode.parentNode.childNodes, e.target.parentNode);
+    this.homeService.changeIsDoneState(this.tasks[columnIndex][index]['id'])
+      .then( (res) => {
+        this.tasks[columnIndex][index]['isDone'] = res['isDone'];
+        }
+      )
+  }
+
+  displayItemDetail(e: any) {
+    document.getElementById('detail-form').style.display = 'block';
+    let columnIndex = e.target.parentNode.id;
+    let index = this.findIndexOfParentNode(e.target.parentNode.childNodes, e.target);
+    this.displayedItem = this.tasks[columnIndex][index];
+  }
+
+  changePriority(e: any) {
+    e.stopPropagation();
+    let columnIndex = e.target.parentNode.parentNode.id;
+    let index = this.findIndexOfParentNode(e.target.parentNode.parentNode.childNodes, e.target.parentNode);
+    this.changedPriorityItem.push(columnIndex, index);
+    document.getElementById('priority-form').style.display = 'block';
+  }
+
+  setPriority(e: any) {
+    if (e.target && e.target.nodeName == "LI") {
+      let priority = e.target.value;
+      let row = this.changedPriorityItem[0];
+      let col = this.changedPriorityItem[1];
+      this.homeService.changePriority(this.tasks[row][col]['id'], priority)
+        .then((res) => {
+          document.getElementById('priority-form').style.display = 'none';
+          this.tasks[row][col]['priority'] = res['priority'];
+        })
     }
   }
 }

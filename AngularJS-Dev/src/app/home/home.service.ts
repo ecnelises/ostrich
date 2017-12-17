@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable()
 export class HomeService{
@@ -11,47 +11,55 @@ export class HomeService{
   }
 
   getData() {
-    return new Promise((resolve, rej) => {
-      this.http.get("/tasks/index")
-        .subscribe(res => {
-          resolve(res);
-        })
-    })
+    return this.http.get("/tasks/index")
+      .toPromise();
   }
 
   removeItem(id: number) {
-    return new Promise((resolve, rej) => {
-      this.http.get("/tasks/remove", {
-          params: {
-            "id": id.toString()
-          }
+    return this.http.get("/tasks/remove", {
+        params: {
+          "id": id.toString()
         }
-      ).subscribe(res => resolve(res));
-    })
+      }
+    ).toPromise();
   }
 
   addItem(index: number, content: String) {
-    return new Promise((resolve, rej) => {
-      this.http.get("/tasks/save", {
-          params: {
-            "columnId": index.toString(),
-            "content": content.toString()
-          }
+    return this.http.get("/tasks/save", {
+        params: {
+          "columnId": index.toString(),
+          "content": content.toString()
         }
-      ).subscribe(res => resolve(res));
-    })
+      }
+    ).toPromise();
   }
 
   changeColumn(id: number, columnIndex: number) {
-    return new Promise((resolve, rej) => {
-      this.http.get("/tasks/changeColumn", {
-          params: {
-            "id": id.toString(),
-            "columnId": columnIndex.toString()
-          }
+    return this.http.get("/tasks/changeColumn", {
+        params: {
+          "id": id.toString(),
+          "columnId": columnIndex.toString()
         }
-      ).subscribe(res => resolve(res));
-    });
+      }
+    ).toPromise();
   }
 
+  changeIsDoneState(id: number) {
+    return this.http.get("/tasks/isdone", {
+        params: {
+          "id": id.toString()
+        }
+      }
+    ).toPromise();
+  }
+
+  changePriority(id: number, priority: number) {
+    return this.http.get("/tasks/priority", {
+        params: {
+          "id": id.toString(),
+          "priority": priority.toString()
+        }
+      }
+    ).toPromise();
+  }
 }
