@@ -1,6 +1,5 @@
-package myapp.web;
+package org.angularbaby.ostrich.web;
 
 public class SubjectsController {
-
 
 }

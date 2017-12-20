@@ -1,4 +1,4 @@
-package myapp.entity;
+package org.angularbaby.ostrich.entity;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -81,10 +81,6 @@ public class Task
 
     @Column(nullable = false)
     private String ancestorIds; //todo
-
-    public Task(){
-
-    }
 
     public Task(int columnId, String content) {
         this(false, 1, new Date(), columnId, content, "");

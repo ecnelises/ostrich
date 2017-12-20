@@ -1,14 +1,12 @@
-package myapp.web;
+package org.angularbaby.ostrich.web;
 
-import myapp.entity.Task;
-import myapp.repository.TasksRepository;
+import org.angularbaby.ostrich.entity.Task;
+import org.angularbaby.ostrich.repository.TasksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -23,15 +21,15 @@ public class TasksController {
     @RequestMapping("/tasks/index")
     public String index() {
         List<Task> list = tasksRepository.findAll();
-        String res = "{\"tasks\":[";
+        StringBuilder resBuilder = new StringBuilder("{\"tasks\":[");
         for (int i = 0; i < list.size(); i++){
-            res += list.get(i).toJSON();
+            resBuilder.append(list.get(i).toJSON());
             if (i + 1 < list.size()){
-                res += ", ";
+                resBuilder.append(", ");
             }
         }
-        res += "]}";
-        return res;
+        resBuilder.append("]}");
+        return resBuilder.toString();
     }
 
     @RequestMapping("/tasks/isdone")

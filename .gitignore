@@ -27,6 +27,7 @@ hs_err_pid*
 /frontend/dist
 /frontend/tmp
 /frontend/out-tsc
+/target
 
 # dependencies
 /frontend/node_modules
