@@ -1,4 +1,4 @@
-package myapp.entity;
+package org.angularbaby.ostrich.entity;
 
 import javax.persistence.*;
 
