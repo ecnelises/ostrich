@@ -62,16 +62,16 @@ public class Task
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
-    private int priority;
+    private Integer priority;
 
     @Column(nullable = false)
-    private boolean isDone;
+    private Boolean isDone;
 
     @Column(nullable = false)
-    private int columnId;
+    private Integer columnId;
 
     @Column(nullable = false)
     private String content;
