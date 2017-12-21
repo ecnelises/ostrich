@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "esnext",
+    "outDir": "./dist/aot",
+    "baseUrl": "",
+    "emitDecoratorMetadata": false
+  },
+  "exclude": [
+    "test"
+  ],
+  "angularCompilerOptions": {
+    "strictMetadataEmit": true,
+    "skipMetadataEmit" : true,
+    "genDir": "./dist/aot",
+    "entryModule": "demos/demo-app.module#DemoAppModule",
+    "trace": true
+  }
+}

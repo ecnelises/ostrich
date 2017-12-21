@@ -1,0 +1,44 @@
+
+
+<ng-template  #loading>
+  <div class="card">
+    <div class="card-body text-center">
+      <i class="fa fa-spin fa-spinner fa-5x"></i>
+      <br>
+      Loading demo...
+    </div>
+  </div>
+</ng-template>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-9">
+
+      <div class="card" *ngIf="firstDemoLoaded; else loading">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-6">
+              <h3>Calendar</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+
+          <ngb-tabset [destroyOnHide]="false">
+
+            <ngb-tab>
+              
+              <ng-template ngbTabContent>
+                <div class="spacer-top"><router-outlet></router-outlet></div>
+              </ng-template>
+            </ngb-tab>
+
+            
+
+          </ngb-tabset>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
