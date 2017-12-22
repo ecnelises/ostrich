@@ -4,10 +4,12 @@
       个人项目
     </span>
   </a>
-  <div id="search-input">
-    <span>Search</span>
-    <input type="text" name="search" placeholder="请输入搜索内容">
-  </div>
+  <form>
+    <mat-form-field>
+      <span>Search</span>
+      <input matInput type="search" name="search" placeholder="请输入搜索内容">
+    </mat-form-field>
+  </form>
   <div id="aa"></div>
   <div id="medium">
     <a href="">我的</a>
@@ -17,8 +19,12 @@
     <a href=""><span>提醒</span></a>
     <a href=""><span>消息</span></a>
   </div>
-  <img id="user" src="" alt="个人头像">
 </div>
+
+<mat-toolbar color="primary">
+  <a>任务</a>
+  <a>分享</a>
+</mat-toolbar>
 
 <div id="tool-bar">
   <div id="path">
