@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Ng2DragDropModule } from 'ng2-drag-drop';
 import { HomeService } from "./home/home.service";
+import { MatToolbarModule, MatButtonModule, MatInputModule, MatFormFieldModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,10 @@ import { HomeService } from "./home/home.service";
     BrowserAnimationsModule,
     Ng2DragDropModule.forRoot(),
     HttpClientModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
   ],
   providers: [HomeService],
   bootstrap: [AppComponent]
