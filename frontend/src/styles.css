@@ -27,3 +27,4 @@ a:hover {
   text-decoration: none;
 }
 
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';

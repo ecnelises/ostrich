@@ -1,0 +1,14 @@
+<div class="card-group-wrapper">
+  <mat-list>
+    <div class="card-wrapper" draggable (dragstart)="cardDragStart($event)" (dragend)="cardDragEnd($event)">
+      <mat-card>
+        <mat-card-content>Example Card</mat-card-content>
+      </mat-card>
+    </div>
+    <div class="card-wrapper">
+      <mat-card>
+        <mat-card-content>Example Card</mat-card-content>
+      </mat-card>
+    </div>
+  </mat-list>
+</div>
