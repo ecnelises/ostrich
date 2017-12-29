@@ -2,12 +2,10 @@ package org.angularbaby.ostrich.web;
 
 import org.angularbaby.ostrich.entity.User;
 import org.angularbaby.ostrich.repository.UserRepository;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JsonParser;
 import org.springframework.boot.json.JsonParserFactory;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,11 +28,8 @@ public class UsersController {
                     .put("status", "ok")
                     .put("email", user.getEmail())
                     .toString();
-        } catch (DataIntegrityViolationException exception) {
-            return new JSONObject()
-                    .put("status", "bad_request")
-                    .put("error", exception.getMessage())
-                    .toString();
+        } catch (Exception exception) {
+            return "{\"status\":\"internal_error\"}";
         }
     }
 
