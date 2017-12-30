@@ -1,0 +1,32 @@
+.dashboard-wrapper {
+  height: 100%;
+  width: 100%;
+  background-image: url('/assets/pic/login-background.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  /* flex-wrap: nowrap; */
+  justify-content: flex-start;
+}
+
+.toolbar-wrapper {
+  height: auto;
+}
+
+.task-groups {
+  margin-top: 10px;
+  position: relative;
+  flex: 1;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: auto;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.dashboard-foot {
+  min-height: 16px;
+}

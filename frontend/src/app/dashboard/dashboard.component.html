@@ -1,3 +1,18 @@
-<p>
-  dashboard works!
-</p>
+<div class="dashboard-wrapper">
+  <div class="toolbar-wrapper">
+    <mat-toolbar color="primary">
+      <span>Ostrich</span>
+      <span class="fill-remaining-space"></span>
+      <span class="toolbar-right">
+        <button mat-button>Calendar</button>
+        <button mat-button>Me</button>
+      </span>
+    </mat-toolbar>
+  </div>
+  <div class="task-groups">
+    <app-task-group></app-task-group>
+    <app-task-group></app-task-group>
+    <app-task-group></app-task-group>
+  </div>
+  <footer class="dashboard-foot"></footer>
+</div>
