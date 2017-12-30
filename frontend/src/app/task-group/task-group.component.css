@@ -4,9 +4,8 @@
   padding-bottom: 20px;
   border-radius: 2px;
   background-color: #DBDDE0;
-  position: absolute;
-  bottom: 0;
-  top: 0;
+  display: inline-block;
+  height: 100%;
 }
 
 .card-list-wrapper {
