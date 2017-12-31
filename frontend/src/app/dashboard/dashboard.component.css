@@ -32,3 +32,11 @@
 .dashboard-foot {
   min-height: 16px;
 }
+
+.add-icon-wrapper {
+  width: 80%;
+  height: 80%;
+  position: fixed;
+  left: 92%;
+  top: 85%;
+}
