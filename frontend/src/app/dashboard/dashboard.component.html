@@ -10,9 +10,14 @@
     </mat-toolbar>
   </div>
   <div class="task-groups">
-    <app-task-group></app-task-group>
-    <app-task-group></app-task-group>
-    <app-task-group></app-task-group>
+    <div class="task-wrapper" *ngFor="let group of getTaskGroups()">
+      <app-task-group></app-task-group>
+    </div>
+  </div>
+  <div class="add-icon-wrapper">
+    <button mat-fab color="primary">
+      <mat-icon svgIcon="plus"></mat-icon>
+    </button>
   </div>
   <footer class="dashboard-foot"></footer>
 </div>
