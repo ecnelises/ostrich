@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { TaskGroupComponent } from './task-group/task-group.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import {ChatComponent} from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     RegisterComponent,
     TaskGroupComponent,
     DashboardComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,

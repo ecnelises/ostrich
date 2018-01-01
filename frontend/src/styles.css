@@ -31,3 +31,56 @@ a:hover {
 }
 
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+
+
+#chat-page ul li {
+  line-height: 1.5rem;
+  padding: 10px 20px;
+  margin: 0;
+  border-bottom: 1px solid #f4f4f4;
+}
+
+.chat-message {
+  padding-left: 68px;
+  position: relative;
+}
+
+.chat-message i {
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  overflow: hidden;
+  left: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 18px;
+  line-height: 42px;
+  color: #fff;
+  text-align: center;
+  border-radius: 50%;
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+.chat-message span {
+  color: #333;
+  font-weight: 600;
+}
+
+.chat-message p {
+  color: #43464b;
+}
+
+#messageForm .input-group input {
+  float: left;
+  width: calc(100% - 85px);
+}
+
+#messageForm .input-group button {
+  float: left;
+  width: 80px;
+  height: 38px;
+  margin-left: 5px;
+}
+
