@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
-import $ from 'jquery';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-chat',
@@ -24,7 +24,7 @@ export class ChatComponent {
     let that = this;
     this.stompClient.connect({}, function(frame) {
       that.stompClient.subscribe('/topic/public', (message) => {
-        let message = JSON.parse(message.body);
+        message = JSON.parse(message.body);
 
         let messageElement = document.createElement('li');
 

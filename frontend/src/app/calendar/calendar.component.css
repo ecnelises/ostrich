@@ -1,0 +1,41 @@
+.form {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 5;
+  background: rgba(230, 230, 230, 0.8);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.form div{
+  background-color: #00b3ee;
+  z-index: 10;
+  width: 40%;
+  height: 40%;
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+}
+
+.form div input{
+  text-align: center;
+  width: 80%;
+}
+
+body {
+  background-image: url('../../assets/pic/login-background.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+

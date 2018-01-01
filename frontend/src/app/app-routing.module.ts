@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { TaskGroupComponent } from './task-group/task-group.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {ChatComponent} from "./chat/chat.component";
+import {CalendarComponent} from "./calendar/calendar.component";
 
 const routes: Routes = [
   {
@@ -14,6 +15,10 @@ const routes: Routes = [
   {
     path: 'chat',
     component: ChatComponent
+  },
+  {
+    path: 'calendar',
+    component: CalendarComponent
   },
 
 ];
