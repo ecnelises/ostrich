@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Ng2DragDropModule } from 'ng2-drag-drop';
@@ -46,7 +47,7 @@ import {CalendarComponent} from "./calendar/calendar.component";
     MatCheckboxModule,
     MatIconModule,
   ],
-  providers: [HomeService, CalendarService],
+  providers: [HomeService, CalendarService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
