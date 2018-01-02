@@ -13,6 +13,10 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { TaskGroupComponent } from './task-group/task-group.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import {ChatComponent} from './chat/chat.component';
+import {CalendarService} from "./calendar/calendar.service";
+import {CalendarPrototypeComponent} from "./calendar/calendar/calendar";
+import {CalendarComponent} from "./calendar/calendar.component";
 
 @NgModule({
   declarations: [
@@ -22,6 +26,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     RegisterComponent,
     TaskGroupComponent,
     DashboardComponent,
+    ChatComponent,
+    CalendarComponent,
+    CalendarPrototypeComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +46,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatCheckboxModule,
     MatIconModule,
   ],
-  providers: [HomeService],
+  providers: [HomeService, CalendarService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
