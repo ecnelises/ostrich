@@ -8,6 +8,10 @@ import java.util.Date;
 @Entity
 @Table(name = "users")
 public class User {
+    public User(){
+        super();
+    }
+
     public User(String email, String password, String nickname) {
         this.email = email;
         this.digestedPassword = BCrypt.hashpw(password, BCrypt.gensalt());

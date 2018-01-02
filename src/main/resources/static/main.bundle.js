@@ -134,26 +134,28 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home_component__ = __webpack_require__("../../../../../src/app/home/home.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common_http__ = __webpack_require__("../../../../_@angular_common@5.1.2@@angular/common/esm5/http.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_forms__ = __webpack_require__("../../../../_@angular_forms@5.1.2@@angular/forms/esm5/forms.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_platform_browser_animations__ = __webpack_require__("../../../../_@angular_platform-browser@5.1.2@@angular/platform-browser/esm5/animations.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ng2_drag_drop__ = __webpack_require__("../../../../_ng2-drag-drop@3.0.2@ng2-drag-drop/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ng2_drag_drop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_ng2_drag_drop__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__home_home_service__ = __webpack_require__("../../../../../src/app/home/home.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__angular_material__ = __webpack_require__("../../../../_@angular_material@5.0.2@@angular/material/esm5/material.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__login_login_component__ = __webpack_require__("../../../../../src/app/login/login.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__register_register_component__ = __webpack_require__("../../../../../src/app/register/register.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__task_group_task_group_component__ = __webpack_require__("../../../../../src/app/task-group/task-group.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__dashboard_dashboard_component__ = __webpack_require__("../../../../../src/app/dashboard/dashboard.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__chat_chat_component__ = __webpack_require__("../../../../../src/app/chat/chat.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__calendar_calendar_service__ = __webpack_require__("../../../../../src/app/calendar/calendar.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__calendar_calendar_calendar__ = __webpack_require__("../../../../../src/app/calendar/calendar/calendar.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__calendar_calendar_component__ = __webpack_require__("../../../../../src/app/calendar/calendar.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_common__ = __webpack_require__("../../../../_@angular_common@5.1.2@@angular/common/esm5/common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_forms__ = __webpack_require__("../../../../_@angular_forms@5.1.2@@angular/forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_platform_browser_animations__ = __webpack_require__("../../../../_@angular_platform-browser@5.1.2@@angular/platform-browser/esm5/animations.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_ng2_drag_drop__ = __webpack_require__("../../../../_ng2-drag-drop@3.0.2@ng2-drag-drop/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_ng2_drag_drop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_ng2_drag_drop__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__home_home_service__ = __webpack_require__("../../../../../src/app/home/home.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__angular_material__ = __webpack_require__("../../../../_@angular_material@5.0.2@@angular/material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__login_login_component__ = __webpack_require__("../../../../../src/app/login/login.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__register_register_component__ = __webpack_require__("../../../../../src/app/register/register.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__task_group_task_group_component__ = __webpack_require__("../../../../../src/app/task-group/task-group.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__dashboard_dashboard_component__ = __webpack_require__("../../../../../src/app/dashboard/dashboard.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__chat_chat_component__ = __webpack_require__("../../../../../src/app/chat/chat.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__calendar_calendar_service__ = __webpack_require__("../../../../../src/app/calendar/calendar.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__calendar_calendar_calendar__ = __webpack_require__("../../../../../src/app/calendar/calendar/calendar.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__calendar_calendar_component__ = __webpack_require__("../../../../../src/app/calendar/calendar.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -181,31 +183,31 @@ var AppModule = (function () {
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */],
                 __WEBPACK_IMPORTED_MODULE_4__home_home_component__["a" /* HomeComponent */],
-                __WEBPACK_IMPORTED_MODULE_11__login_login_component__["a" /* LoginComponent */],
-                __WEBPACK_IMPORTED_MODULE_12__register_register_component__["a" /* RegisterComponent */],
-                __WEBPACK_IMPORTED_MODULE_13__task_group_task_group_component__["a" /* TaskGroupComponent */],
-                __WEBPACK_IMPORTED_MODULE_14__dashboard_dashboard_component__["a" /* DashboardComponent */],
-                __WEBPACK_IMPORTED_MODULE_15__chat_chat_component__["a" /* ChatComponent */],
-                __WEBPACK_IMPORTED_MODULE_18__calendar_calendar_component__["a" /* CalendarComponent */],
-                __WEBPACK_IMPORTED_MODULE_17__calendar_calendar_calendar__["a" /* CalendarPrototypeComponent */],
+                __WEBPACK_IMPORTED_MODULE_12__login_login_component__["a" /* LoginComponent */],
+                __WEBPACK_IMPORTED_MODULE_13__register_register_component__["a" /* RegisterComponent */],
+                __WEBPACK_IMPORTED_MODULE_14__task_group_task_group_component__["a" /* TaskGroupComponent */],
+                __WEBPACK_IMPORTED_MODULE_15__dashboard_dashboard_component__["a" /* DashboardComponent */],
+                __WEBPACK_IMPORTED_MODULE_16__chat_chat_component__["a" /* ChatComponent */],
+                __WEBPACK_IMPORTED_MODULE_19__calendar_calendar_component__["a" /* CalendarComponent */],
+                __WEBPACK_IMPORTED_MODULE_18__calendar_calendar_calendar__["a" /* CalendarPrototypeComponent */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2__app_routing_module__["a" /* AppRoutingModule */],
-                __WEBPACK_IMPORTED_MODULE_6__angular_forms__["c" /* FormsModule */],
-                __WEBPACK_IMPORTED_MODULE_7__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
-                __WEBPACK_IMPORTED_MODULE_8_ng2_drag_drop__["Ng2DragDropModule"].forRoot(),
+                __WEBPACK_IMPORTED_MODULE_7__angular_forms__["c" /* FormsModule */],
+                __WEBPACK_IMPORTED_MODULE_8__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
+                __WEBPACK_IMPORTED_MODULE_9_ng2_drag_drop__["Ng2DragDropModule"].forRoot(),
                 __WEBPACK_IMPORTED_MODULE_5__angular_common_http__["b" /* HttpClientModule */],
-                __WEBPACK_IMPORTED_MODULE_10__angular_material__["i" /* MatToolbarModule */],
-                __WEBPACK_IMPORTED_MODULE_10__angular_material__["a" /* MatButtonModule */],
-                __WEBPACK_IMPORTED_MODULE_10__angular_material__["g" /* MatInputModule */],
-                __WEBPACK_IMPORTED_MODULE_10__angular_material__["d" /* MatFormFieldModule */],
-                __WEBPACK_IMPORTED_MODULE_10__angular_material__["b" /* MatCardModule */],
-                __WEBPACK_IMPORTED_MODULE_10__angular_material__["h" /* MatListModule */],
-                __WEBPACK_IMPORTED_MODULE_10__angular_material__["c" /* MatCheckboxModule */],
-                __WEBPACK_IMPORTED_MODULE_10__angular_material__["e" /* MatIconModule */],
+                __WEBPACK_IMPORTED_MODULE_11__angular_material__["i" /* MatToolbarModule */],
+                __WEBPACK_IMPORTED_MODULE_11__angular_material__["a" /* MatButtonModule */],
+                __WEBPACK_IMPORTED_MODULE_11__angular_material__["g" /* MatInputModule */],
+                __WEBPACK_IMPORTED_MODULE_11__angular_material__["d" /* MatFormFieldModule */],
+                __WEBPACK_IMPORTED_MODULE_11__angular_material__["b" /* MatCardModule */],
+                __WEBPACK_IMPORTED_MODULE_11__angular_material__["h" /* MatListModule */],
+                __WEBPACK_IMPORTED_MODULE_11__angular_material__["c" /* MatCheckboxModule */],
+                __WEBPACK_IMPORTED_MODULE_11__angular_material__["e" /* MatIconModule */],
             ],
-            providers: [__WEBPACK_IMPORTED_MODULE_9__home_home_service__["a" /* HomeService */], __WEBPACK_IMPORTED_MODULE_16__calendar_calendar_service__["a" /* CalendarService */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_10__home_home_service__["a" /* HomeService */], __WEBPACK_IMPORTED_MODULE_17__calendar_calendar_service__["a" /* CalendarService */], { provide: __WEBPACK_IMPORTED_MODULE_6__angular_common__["g" /* LocationStrategy */], useClass: __WEBPACK_IMPORTED_MODULE_6__angular_common__["d" /* HashLocationStrategy */] }],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
@@ -237,7 +239,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/calendar/calendar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<angular2-fullcalendar [options]=\"options\">\n</angular2-fullcalendar>\n\n<div id=\"event-form\" class=\"form\" style=\"display: none\" (click)=\"hideThisForm($event)\">\n  <div (click)=\"notHideThisForm($event)\">\n    <span>title</span>\n    <input type=\"text\" [(ngModel)]=\"eventTitle\">\n    <span>content</span>\n    <input type=\"text\" [(ngModel)]=\"eventContent\">\n    <span>starttime</span>\n    <input type=\"datetime-local\" value=\"2017-12-13T07:00\" [(ngModel)]=\"eventStartTime\">\n    <span>endtime</span>\n    <input type=\"datetime-local\" [(ngModel)]=\"eventEndTime\">\n    <span>remindtime</span>\n    <input type=\"datetime-local\" [(ngModel)]=\"eventRemindTime\">\n    <span (click)=\"addevent()\">submit</span>\n  </div>\n</div>\n\n<div id=\"event-detail-form\" class=\"form\" style=\"display: none\" (click)=\"hideThisForm($event)\">\n  <div (click)=\"notHideThisForm($event)\">\n    <span id=\"id\" style=\"display: none\"></span>\n    <span>title</span>\n    <span id=\"title\"></span>\n    <span>content</span>\n    <span id=\"content\"></span>\n    <span>starttime</span>\n    <span id=\"st\"></span>\n    <span>endtime</span>\n    <span id=\"et\"></span>\n    <span>remindtime</span>\n    <span id=\"rt\"></span>\n    <span (click)=\"close()\">close</span>\n    <span (click)=\"removeevent()\">delete</span>\n  </div>\n</div>\n"
+module.exports = "<angular2-fullcalendar [options]=\"options\">\r\n</angular2-fullcalendar>\r\n\r\n<div id=\"event-form\" class=\"form\" style=\"display: none\" (click)=\"hideThisForm($event)\">\r\n  <div (click)=\"notHideThisForm($event)\">\r\n    <span>title</span>\r\n    <input type=\"text\" [(ngModel)]=\"eventTitle\">\r\n    <span>content</span>\r\n    <input type=\"text\" [(ngModel)]=\"eventContent\">\r\n    <span>starttime</span>\r\n    <input type=\"datetime-local\" value=\"2017-12-13T07:00\" [(ngModel)]=\"eventStartTime\">\r\n    <span>endtime</span>\r\n    <input type=\"datetime-local\" [(ngModel)]=\"eventEndTime\">\r\n    <span>remindtime</span>\r\n    <input type=\"datetime-local\" [(ngModel)]=\"eventRemindTime\">\r\n    <span (click)=\"addevent()\">submit</span>\r\n  </div>\r\n</div>\r\n\r\n<div id=\"event-detail-form\" class=\"form\" style=\"display: none\" (click)=\"hideThisForm($event)\">\r\n  <div (click)=\"notHideThisForm($event)\">\r\n    <span id=\"id\" style=\"display: none\"></span>\r\n    <span>title</span>\r\n    <span id=\"title\"></span>\r\n    <span>content</span>\r\n    <span id=\"content\"></span>\r\n    <span>starttime</span>\r\n    <span id=\"st\"></span>\r\n    <span>endtime</span>\r\n    <span id=\"et\"></span>\r\n    <span>remindtime</span>\r\n    <span id=\"rt\"></span>\r\n    <span (click)=\"close()\">close</span>\r\n    <span (click)=\"removeevent()\">delete</span>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -467,7 +469,7 @@ var CalendarService = (function () {
 /***/ "../../../../../src/app/calendar/calendar/calendar.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div></div>\n"
+module.exports = "<div></div>\r\n"
 
 /***/ }),
 
@@ -638,7 +640,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"dashboard-wrapper\">\r\n  <div class=\"toolbar-wrapper\">\r\n    <mat-toolbar color=\"primary\">\r\n      <span>Ostrich</span>\r\n      <span class=\"fill-remaining-space\"></span>\r\n      <span class=\"toolbar-right\">\r\n        <a href=\"/chat\" mat-button>Chat</a>\r\n        <a href=\"/calendar\" mat-button>Calendar</a>\r\n        <a mat-button>Me</a>\r\n      </span>\r\n    </mat-toolbar>\r\n  </div>\r\n  <div class=\"task-groups\">\r\n    <div class=\"task-wrapper\" *ngFor=\"let group of getTaskGroups()\">\r\n      <app-task-group></app-task-group>\r\n    </div>\r\n  </div>\r\n  <div class=\"add-icon-wrapper\">\r\n    <button mat-fab color=\"primary\">\r\n      <mat-icon svgIcon=\"plus\"></mat-icon>\r\n    </button>\r\n  </div>\r\n  <footer class=\"dashboard-foot\"></footer>\r\n</div>\r\n"
+module.exports = "<div class=\"dashboard-wrapper\">\r\n  <div class=\"toolbar-wrapper\">\r\n    <mat-toolbar color=\"primary\">\r\n      <span>Ostrich</span>\r\n      <span class=\"fill-remaining-space\"></span>\r\n      <span class=\"toolbar-right\">\r\n        <a href=\"/#/chat\" mat-button>Chat</a>\r\n        <a href=\"/#/calendar\" mat-button>Calendar</a>\r\n        <a mat-button>Me</a>\r\n      </span>\r\n    </mat-toolbar>\r\n  </div>\r\n  <div class=\"task-groups\">\r\n    <div class=\"task-wrapper\" *ngFor=\"let group of getTaskGroups()\">\r\n      <app-task-group></app-task-group>\r\n    </div>\r\n  </div>\r\n  <div class=\"add-icon-wrapper\">\r\n    <button mat-fab color=\"primary\">\r\n      <mat-icon svgIcon=\"plus\"></mat-icon>\r\n    </button>\r\n  </div>\r\n  <footer class=\"dashboard-foot\"></footer>\r\n</div>\r\n"
 
 /***/ }),
 
