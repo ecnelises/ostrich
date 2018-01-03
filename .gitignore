@@ -66,4 +66,4 @@ testem.log
 Thumbs.db
 
 # Configuration Files
-application.properties
+application-local.properties

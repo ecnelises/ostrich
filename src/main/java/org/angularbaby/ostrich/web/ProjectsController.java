@@ -1,5 +1,5 @@
 package org.angularbaby.ostrich.web;
 
-public class SubjectsController {
+public class ProjectsController {
 
 }

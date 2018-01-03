@@ -1,63 +1,40 @@
 package org.angularbaby.ostrich.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "tasks")
-public class Task
-{
+@Data
+public class Task {
 
-    public long getId() {
-        return id;
+    public Task() {
+        this.done = false;
+        this.content = "";
+        this.createdAt = new Date();
     }
 
-    public int getPriority() {
-        return priority;
+    public Task(String content, TaskGroup group, User creator) {
+        this.done = false;
+        this.content = content;
+        this.createdAt = new Date();
+        this.taskGroup = group;
+        this.creator = creator;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
+    public void addDependency(Task task) {
+        this.dependencies.add(task);
+    }
+
+    public boolean isReady() {
+        return this.dependencies.stream().allMatch(task -> task.done);
     }
 
     public boolean isDone() {
-        return isDone;
-    }
-
-    public void setDone(boolean done) {
-        isDone = done;
-    }
-
-    public int getColumnId() {
-        return columnId;
-    }
-
-    public void setColumnId(int columnId) {
-        this.columnId = columnId;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Date getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(Date updated) {
-        this.updated = updated;
-    }
-
-    public String getAncestorIds() {
-        return ancestorIds;
-    }
-
-    public void setAncestorIds(String ancestorIds) {
-        this.ancestorIds = ancestorIds;
+        return this.done;
     }
 
     @Id
@@ -65,44 +42,27 @@ public class Task
     private Long id;
 
     @Column(nullable = false)
-    private Integer priority;
-
-    @Column(nullable = false)
-    private Boolean isDone;
-
-    @Column(nullable = false)
-    private Integer columnId;
+    private Boolean done;
 
     @Column(nullable = false)
     private String content;
 
     @Column(nullable = false)
-    private Date updated;
+    private Date createdAt;
 
-    @Column(nullable = false)
-    private String ancestorIds; //todo
+    @ManyToMany
+    @JoinTable(name = "task_dependencies",
+        joinColumns = @JoinColumn(name = "dependency_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id")
+    )
+    private Set<Task> dependencies;
 
-    public Task(int columnId, String content) {
-        this(false, 1, new Date(), columnId, content, "");
-    }
+    @ManyToOne
+    @JoinColumn(name = "task_group_id")
+    private TaskGroup taskGroup;
 
-    public Task(boolean isDone,int priority, Date updated,int columnId, String content, String ancestorIds) {
-        this.isDone = isDone;
-        this.priority = priority;
-        this.updated = updated;
-        this.ancestorIds = ancestorIds;
-        this.columnId = columnId;
-        this.content = content;
-    }
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User creator;
 
-    public String toJSON(){
-        return "{" + "\"id\":\"" + this.getId() +
-                "\", \"priority\":\"" + this.getPriority() +
-                "\", \"isDone\":\"" + this.isDone() +
-                "\", \"content\":\"" + this.getContent() +
-                "\", \"columnId\":\"" + this.getColumnId() +
-                "\", \"updated\":\"" + this.getUpdated() +
-                "\", \"ancestorIds\":\"" + this.getAncestorIds() +
-                "\"}";
-    }
 }
