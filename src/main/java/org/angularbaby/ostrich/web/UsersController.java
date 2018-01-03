@@ -34,7 +34,7 @@ public class UsersController {
         }
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+   /* @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestBody String param) {
         JsonParser parser = JsonParserFactory.getJsonParser();
         Map<String, Object> object = parser.parseMap(param);
@@ -63,7 +63,7 @@ public class UsersController {
         } catch (Exception exception) {
             return "{\"status\":\"internal_error\"}";
         }
-    }
+    }*/
 
     @Autowired
     private UserRepository userRepository;
