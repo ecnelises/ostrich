@@ -1,6 +1,6 @@
 package org.angularbaby.ostrich.web;
 
-import com.auth0.jwt.JWT;
+/*import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
@@ -29,4 +29,4 @@ public class JWTController {
         Map<String, Claim> claims = jwt.getClaims();
         System.out.println(claims.get("userId").asLong());
     }
-}
+}*/

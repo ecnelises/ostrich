@@ -18,6 +18,9 @@ import {ChatComponent} from './chat/chat.component';
 import {CalendarService} from "./calendar/calendar.service";
 import {CalendarPrototypeComponent} from "./calendar/calendar/calendar";
 import {CalendarComponent} from "./calendar/calendar.component";
+import { FileComponent } from "./file/file.component";
+import { FileService } from "./file/file.service";
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,7 @@ import {CalendarComponent} from "./calendar/calendar.component";
     ChatComponent,
     CalendarComponent,
     CalendarPrototypeComponent,
+    FileComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,8 +50,9 @@ import {CalendarComponent} from "./calendar/calendar.component";
     MatListModule,
     MatCheckboxModule,
     MatIconModule,
+    FileUploadModule,
   ],
-  providers: [HomeService, CalendarService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [HomeService, CalendarService, FileService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
