@@ -25,6 +25,8 @@ public class EventController {
         JsonParser parser = JsonParserFactory.getJsonParser();
         Map<String, Object> object = parser.parseMap(param);
 
+        System.out.println((String) object.get("startTime"));
+
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
         Date startTime = new Date();
@@ -35,6 +37,7 @@ public class EventController {
             startTime = format.parse((String) object.get("startTime"));
             endTime = format.parse((String) object.get("endTime"));
             remindTime = format.parse((String) object.get("remindTime"));
+            System.out.println(startTime);
         }
         catch (Exception e){
 
@@ -80,6 +83,26 @@ public class EventController {
             List<Event> events = eventRepository.findAll();
             return new JSONObject()
                     .put("events", events)
+                    .toString();
+        } catch (DataIntegrityViolationException exception) {
+            return new JSONObject()
+                    .put("status", "bad_request")
+                    .put("error", exception.getMessage())
+                    .toString();
+        }
+    }
+
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    public String findOne(@RequestParam(name = "eventId") Long id) {
+        try {
+            //todo 权限控制
+            Event event = eventRepository.findOne(id);
+            return new JSONObject()
+                    .put("eventTitle", event.getTitle())
+                    .put("eventContent", event.getContent())
+                    .put("eventStartTime", event.getStartTime())
+                    .put("eventEndTime", event.getEndTime())
+                    .put("eventRemindTime", event.getRemindTime())
                     .toString();
         } catch (DataIntegrityViolationException exception) {
             return new JSONObject()

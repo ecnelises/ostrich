@@ -24,6 +24,15 @@ export class CalendarService{
     ).toPromise();
   }
 
+  findEvent(eventId: number) {
+    return this.http.get("/api/events/find", {
+        params: {
+          eventId: eventId.toString()
+        }
+      }
+    ).toPromise();
+  }
+
   createEvent(title: String, content: String, startTime :String, endTime :String, remindTime :String) {
     console.log("AA" + startTime);
     return this.http.post("/api/events/create", {
