@@ -23,11 +23,10 @@ export class ChatComponent {
     this.stompClient = Stomp.over(ws);
     let that = this;
     this.stompClient.connect({}, function(frame) {
-      that.stompClient.subscribe('/topic/public', (message) => {
+      that.stompClient.subscribe('/user/' + 2 + '/message', (message) => {
         message = JSON.parse(message.body);
 
         let messageElement = document.createElement('li');
-
 
         messageElement.classList.add('chat-message');
 
@@ -60,7 +59,7 @@ export class ChatComponent {
       content: $('#message').val(),
       sendTime: new Date()
     };
-    this.stompClient.send('/app/chat.sendMessage' , {}, JSON.stringify(chatMessage));
+    this.stompClient.send('/app/message' , {}, JSON.stringify(chatMessage));
     $('#message').val('');
   }
 

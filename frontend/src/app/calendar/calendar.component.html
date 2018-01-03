@@ -1,36 +1,4 @@
 <angular2-fullcalendar [options]="options">
 </angular2-fullcalendar>
-
-<div id="event-form" class="form" style="display: none" (click)="hideThisForm($event)">
-  <div (click)="notHideThisForm($event)">
-    <span>title</span>
-    <input type="text" [(ngModel)]="eventTitle">
-    <span>content</span>
-    <input type="text" [(ngModel)]="eventContent">
-    <span>starttime</span>
-    <input type="datetime-local" value="2017-12-13T07:00" [(ngModel)]="eventStartTime">
-    <span>endtime</span>
-    <input type="datetime-local" [(ngModel)]="eventEndTime">
-    <span>remindtime</span>
-    <input type="datetime-local" [(ngModel)]="eventRemindTime">
-    <span (click)="addevent()">submit</span>
-  </div>
-</div>
-
-<div id="event-detail-form" class="form" style="display: none" (click)="hideThisForm($event)">
-  <div (click)="notHideThisForm($event)">
-    <span id="id" style="display: none"></span>
-    <span>title</span>
-    <span id="title"></span>
-    <span>content</span>
-    <span id="content"></span>
-    <span>starttime</span>
-    <span id="st"></span>
-    <span>endtime</span>
-    <span id="et"></span>
-    <span>remindtime</span>
-    <span id="rt"></span>
-    <span (click)="close()">close</span>
-    <span (click)="removeevent()">delete</span>
-  </div>
-</div>
+<button id="add" style="display: none" (click)="openDialog()"></button>
+<button id="detail" style="display: none" (click)="openDetailDialog()"></button>
