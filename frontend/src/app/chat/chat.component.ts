@@ -13,6 +13,7 @@ export class ChatComponent {
   private title = 'WebSockets chat';
   private stompClient;
   message: string;
+  private id: number
 
   constructor() {
     this.initializeWebSocketConnection();

@@ -3,7 +3,7 @@ import 'fullcalendar';
 import { CalendarService } from "./calendar.service";
 import {Component, Inject, ElementRef} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {DialogInnerComponent} from "../dialog-inner/dialog-inner.component";
+import {CalendarDialogComponent} from "../calendar-dialog/calendar-dialog.component";
 
 
 @Component({
@@ -45,15 +45,6 @@ export class CalendarComponent {
     }
   };
 
-  clearInput() {
-    this.eventId = null;
-    this.eventTitle = "";
-    this.eventContent = "";
-    this.eventStartTime = null;
-    this.eventEndTime = null;
-    this.eventRemindTime = null;
-  }
-
   addEventToArray(id, title, content, start, end, remind){
     let tmp = {
       id: id,
@@ -66,20 +57,6 @@ export class CalendarComponent {
     this.events.push(tmp);
     $('angular2-fullcalendar').fullCalendar('addEventSource',[tmp]);
     // $('angular2-fullcalendar').fullCalendar('option', 'height', 500);
-  }
-
-  close() {
-    this.clearInput();
-    document.getElementById('event-detail-form').style.display = 'none';
-  }
-
-  removeevent() {
-    let eventId = document.getElementById('id').textContent;
-    this.cs.removeEvent(parseInt(eventId))
-      .then( res => {
-        $('angular2-fullcalendar').fullCalendar('removeEvents',[eventId]);
-        this.close();
-      });
   }
 
   constructor(private element: ElementRef, private cs: CalendarService, public dialog: MatDialog) {
@@ -110,8 +87,8 @@ export class CalendarComponent {
         let end = new Date();
         end.setTime(Date.parse(res['eventEndTime']));
         let remind = new Date();
-        start.setTime(Date.parse(res['eventRemindTime']));
-        let dialogRef = this.dialog.open(DialogInnerComponent, {
+        remind.setTime(Date.parse(res['eventRemindTime']));
+        let dialogRef = this.dialog.open(CalendarDialogComponent, {
           width: '500px',
           data: {
             eventStartTime: start,
@@ -137,7 +114,7 @@ export class CalendarComponent {
   }
 
   openDialog(): void {
-    let dialogRef = this.dialog.open(DialogInnerComponent, {
+    let dialogRef = this.dialog.open(CalendarDialogComponent, {
       width: '500px',
       data: {
         eventStartTime: this.eventStartTime,
@@ -148,10 +125,17 @@ export class CalendarComponent {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
+      let start = new Date();
+      start.setTime(result.eventStartTime.getTime() + 72000000);
+      let end = new Date();
+      end.setTime(result.eventEndTime.getTime() + 72000000);
+      let remind = new Date();
+      remind.setTime(result.eventRemindTime.getTime() + 72000000);
       this.cs.createEvent(result.eventTitle, result.eventContent,
-        result.eventStartTime.toISOString(), result.eventEndTime.toISOString(), result.eventRemindTime.toISOString())
+        start.toISOString(), end.toISOString(), remind.toISOString())
         .then( res => {
-            this.addEventToArray(res['eventId'], result.eventTitle, result.eventContent, result.eventStartTime.toISOString(), result.eventEndTime.toISOString(), result.eventRemindTime.toISOString());
+            this.addEventToArray(res['eventId'], result.eventTitle, result.eventContent,
+              start.toISOString(), end.toISOString(), remind.toISOString());
           }
         );
       console.log('The dialog was closed');

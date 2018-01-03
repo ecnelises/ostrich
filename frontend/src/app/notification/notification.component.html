@@ -1,0 +1,6 @@
+<mat-selection-list>
+  <mat-list-option *ngFor="let notification of notifications">
+    {{notification.sender}} --- {{notification.message}}
+  </mat-list-option>
+</mat-selection-list>
+<button (click)="sendMessage()">Send</button>

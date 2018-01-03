@@ -22,8 +22,8 @@ import {CalendarComponent} from "./calendar/calendar.component";
 import { FileComponent } from "./file/file.component";
 import { FileService } from "./file/file.service";
 import { FileUploadModule } from 'ng2-file-upload';
-import {DialogComponent} from './dialog/dialog.component';
-import { DialogInnerComponent } from './dialog-inner/dialog-inner.component';
+import { CalendarDialogComponent } from './calendar-dialog/calendar-dialog.component';
+import { NotificationComponent } from './notification/notification.component';
 
 
 @NgModule({
@@ -38,8 +38,8 @@ import { DialogInnerComponent } from './dialog-inner/dialog-inner.component';
     CalendarComponent,
     CalendarPrototypeComponent,
     FileComponent,
-    DialogComponent,
-    DialogInnerComponent
+    CalendarDialogComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
@@ -62,8 +62,7 @@ import { DialogInnerComponent } from './dialog-inner/dialog-inner.component';
     MatNativeDateModule,
   ],
   entryComponents: [
-    DialogComponent,
-    DialogInnerComponent
+    CalendarDialogComponent
   ],
   providers: [HomeService, CalendarService, FileService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

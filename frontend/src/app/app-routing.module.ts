@@ -7,7 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import {ChatComponent} from "./chat/chat.component";
 import {CalendarComponent} from "./calendar/calendar.component";
 import { FileComponent } from "./file/file.component";
-import {DialogComponent} from "./dialog/dialog.component";
+import {NotificationComponent} from "./notification/notification.component";
 
 const routes: Routes = [
   {
@@ -25,6 +25,10 @@ const routes: Routes = [
   {
   path: 'file',
   component: FileComponent
+  },
+  {
+    path: 'notification',
+    component: NotificationComponent
   },
 
 ];
