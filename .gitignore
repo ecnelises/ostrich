@@ -18,6 +18,12 @@
 *.tar.gz
 *.rar
 
+# Static files
+src/main/resources/static/assets/
+src/main/resources/static/*.js
+src/main/resources/static/*.svg
+src/main/resources/static/*.png
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
@@ -67,3 +73,4 @@ Thumbs.db
 
 # Configuration Files
 application.properties
+application-local.properties

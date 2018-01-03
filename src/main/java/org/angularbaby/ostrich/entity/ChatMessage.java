@@ -5,7 +5,7 @@ import javax.security.auth.callback.CallbackHandler;
 import java.util.Date;
 
 @Entity
-@Table(name = "chatmessages")
+@Table(name = "chat_messages")
 public class ChatMessage {
 
     public String getContent() {

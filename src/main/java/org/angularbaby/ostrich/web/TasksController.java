@@ -1,72 +1,72 @@
 package org.angularbaby.ostrich.web;
 
+import org.angularbaby.ostrich.entity.Project;
 import org.angularbaby.ostrich.entity.Task;
-import org.angularbaby.ostrich.repository.TasksRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.angularbaby.ostrich.entity.TaskGroup;
+import org.angularbaby.ostrich.exception.AuthorizeFailedException;
+import org.angularbaby.ostrich.request.TaskRequest;
+import org.angularbaby.ostrich.response.TaskResponse;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class TasksController {
-    @RequestMapping("/tasks/save")
-    public String create(@RequestParam(name = "content")String content, @RequestParam(name = "columnId")int columnId) {
-        Task tmp = new Task(columnId, content);
-        tasksRepository.save(tmp);
-        return tmp.toJSON();
-    }
+@RequestMapping("/api/tasks")
+public class TasksController extends ApplicationBaseController {
 
-    @RequestMapping("/tasks/index")
-    public String index() {
-        List<Task> list = tasksRepository.findAll();
-        StringBuilder resBuilder = new StringBuilder("{\"tasks\":[");
-        for (int i = 0; i < list.size(); i++){
-            resBuilder.append(list.get(i).toJSON());
-            if (i + 1 < list.size()){
-                resBuilder.append(", ");
-            }
+    @RequestMapping(method = RequestMethod.POST)
+    public TaskResponse addTask(@RequestBody TaskRequest request) {
+        TaskGroup group = taskGroupsRepository.findOne(request.getTaskGroupId());
+        if (!group.getProject().getMembers().contains(currentUser())) {
+            throw new AuthorizeFailedException();
         }
-        resBuilder.append("]}");
-        return resBuilder.toString();
+        Task task = new Task(request.getContent(), group, currentUser());
+        tasksRepository.save(task);
+        return new TaskResponse(task);
     }
 
-    @RequestMapping("/tasks/isdone")
-    public String isDone(@RequestParam(name = "id")Long id) {
-        Task tmp = tasksRepository.findOne(id);
-        tmp.setDone(!tmp.isDone());
-        tasksRepository.save(tmp);
-        return tmp.toJSON();
-    }
-
-    @RequestMapping("/tasks/priority")
-    public String setPriority(@RequestParam(name = "id")Long id, @RequestParam(name = "priority")int priority) {
-        Task tmp = tasksRepository.findOne(id);
-        tmp.setPriority(priority);
-        tasksRepository.save(tmp);
-        return tmp.toJSON();
-    }
-
-    @RequestMapping("/tasks/findOne")
-    public String find(@RequestParam(name = "id")Long id) {
-        return tasksRepository.findOne(id).toJSON();
-    }
-
-    @RequestMapping("/tasks/remove")
-    public String remove(@RequestParam(name = "id")Long id) {
-        tasksRepository.delete(id);
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    public String deleteTask(@PathVariable("id") Long id) {
+        Task task = tasksRepository.findOne(id);
+        Project project = task.getTaskGroup().getProject();
+        if (!project.getMembers().contains(currentUser())) {
+            throw new AuthorizeFailedException();
+        }
+        tasksRepository.delete(task);
         return "";
     }
 
-    @RequestMapping("/tasks/changeColumn")
-    public String changeColumn(@RequestParam(name = "id")Long id, @RequestParam(name = "columnId")int columnId) {
-        Task tmp = tasksRepository.findOne(id);
-        tmp.setColumnId(columnId);
-        tasksRepository.save(tmp);
-        return "";
+    @RequestMapping(method = RequestMethod.PUT, value = "/{id}/toggle")
+    public TaskResponse toggleTask(@PathVariable("id") Long id, @RequestBody Boolean done) {
+        Task task = tasksRepository.findOne(id);
+        Project project = task.getTaskGroup().getProject();
+        if (!project.getMembers().contains(currentUser())) {
+            throw new AuthorizeFailedException();
+        }
+        task.setDone(done);
+        tasksRepository.save(task);
+        return new TaskResponse(task);
     }
 
-    @Autowired
-    private TasksRepository tasksRepository;
+    @RequestMapping(method = RequestMethod.PUT, value = "/{id}/move")
+    public TaskResponse moveTask(@PathVariable("id") Long id, @RequestBody Long groupId) {
+        TaskGroup destGroup = taskGroupsRepository.findOne(groupId);
+        Task task = tasksRepository.findOne(id);
+        if (!task.getTaskGroup().getProject().getMembers().contains(currentUser()) ||
+                !destGroup.getProject().getId().equals(task.getTaskGroup().getProject().getId())) {
+            throw new AuthorizeFailedException();
+        }
+        task.setTaskGroup(destGroup);
+        tasksRepository.save(task);
+        return new TaskResponse(task);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+    public TaskResponse changeTask(@PathVariable("id") Long id, @RequestBody TaskRequest request) {
+        Task task = tasksRepository.findOne(id);
+        if (request.getContent() != null) {
+            task.setContent(request.getContent());
+        }
+        tasksRepository.save(task);
+        return new TaskResponse(task);
+    }
+
 }
