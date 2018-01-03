@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/sessions")
-public class SessionController extends ApplicationBaseController {
+public class SessionsController extends ApplicationBaseController {
 
     // Respond to a login request and sign a key with expire at 1 day later.
     @RequestMapping(method = RequestMethod.POST)
