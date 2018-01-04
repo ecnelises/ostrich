@@ -9,11 +9,11 @@ import { FormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { Ng2DragDropModule } from 'ng2-drag-drop'
 import { HomeService } from "./home/home.service"
-import { MatToolbarModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatCardModule, MatListModule, MatCheckboxModule, MatIconModule, MatSnackBarModule, MatProgressSpinnerModule } from '@angular/material'
+import { MatToolbarModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatCardModule, MatListModule, MatCheckboxModule, MatIconModule, MatSnackBarModule, MatProgressSpinnerModule, MatDialogModule } from '@angular/material'
 import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component'
 import { TaskGroupComponent } from './task-group/task-group.component'
-import { DashboardComponent } from './dashboard/dashboard.component'
+import { DashboardComponent, DashboardNewDialogComponent } from './dashboard/dashboard.component'
 import { ChatComponent} from './chat/chat.component'
 import { CalendarService} from "./calendar/calendar.service"
 import { CalendarPrototypeComponent } from "./calendar/calendar/calendar"
@@ -45,6 +45,7 @@ import { AuthModule } from './auth.module'
     FileComponent,
     ProjectListComponent,
     NavigationBarComponent,
+    DashboardNewDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +56,7 @@ import { AuthModule } from './auth.module'
     HttpClientModule,
     MatToolbarModule,
     MatButtonModule,
+    MatDialogModule,
     MatInputModule,
     MatFormFieldModule,
     MatCardModule,
@@ -77,6 +79,9 @@ import { AuthModule } from './auth.module'
     FileService,
     LoginService,
     ProjectListService
+  ],
+  entryComponents: [
+    DashboardNewDialogComponent,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,6 +7,7 @@ import { MatIconRegistry } from '@angular/material';
 import { TaskGroupModel } from '../task-group/task-group.model';
 import { ActivatedRoute } from '@angular/router';
 import { DashboardService } from './dashboard.service'
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +20,7 @@ export class DashboardComponent implements OnInit {
   taskGroups: TaskGroupModel[]
   router: ActivatedRoute
 
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, service: DashboardService, router: ActivatedRoute) {
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, service: DashboardService, router: ActivatedRoute, public dialog: MatDialog) {
     iconRegistry.addSvgIcon(
         'plus',
         sanitizer.bypassSecurityTrustResourceUrl('assets/pic/plus-icon.svg'))
@@ -34,7 +35,35 @@ export class DashboardComponent implements OnInit {
       .then(groups => this.taskGroups = groups)
   }
 
+  openDialog(): void {
+    let dialogRef = this.dialog.open(DashboardNewDialogComponent, {
+      width: '80%',
+      height: '70%',
+      data: {}
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
+  }
+
   getTaskGroups() {
     return this.taskGroups
+  }
+}
+
+@Component({
+  selector: 'app-dashboard-new-dialog',
+  templateUrl: './dashboard-new-dialog.component.html',
+  styleUrls: ['./dashboard-new-dialog.component.css']
+})
+export class DashboardNewDialogComponent {
+  constructor(
+    public dialogRef: MatDialogRef<DashboardNewDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

@@ -3,8 +3,6 @@
   <div class="card-list-wrapper">
     <mat-selection-list>
       <div class="card-wrapper" draggable
-        (dragstart)="cardDragStart($event)"
-        (dragend)="cardDragEnd($event)"
         [@toggleCompletionAnimation]="task.done ? 'done' : 'undone'"
         *ngFor="let task of getUnfinishedTasks()">
         <mat-card>
