@@ -21,5 +21,4 @@ public class TaskRequest {
     }
 
     private String content;
-    private Long taskGroupId;
 }

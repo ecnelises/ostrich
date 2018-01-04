@@ -62,10 +62,10 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
             // Parse JSON Payload.
             Map<String, Object> payload = JsonParserFactory.getJsonParser().parseMap(jsonPayload);
-//            Date expire = new Date((long)payload.getOrDefault("exp", new Long(0)));
-//            if (expire.before(new Date())) {
-//                return false;
-//            }
+            Date expire = new Date(Long.valueOf(String.valueOf(payload.get("exp"))) * 1000);
+            if (expire.before(new Date())) {
+                return false;
+            }
             request.setAttribute("current_user_id", Long.valueOf(String.valueOf(payload.get("user_id"))));
         } catch (UnsupportedEncodingException | JWTVerificationException exception) {
             return false;

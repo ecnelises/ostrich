@@ -3,11 +3,12 @@ package org.angularbaby.ostrich.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 @Entity
-@Table(name = "subjects")
+@Table(name = "projects")
 @Data
 public class Project {
     public Long getId() {
@@ -67,7 +68,10 @@ public class Project {
     @JoinTable(name = "users_projects",
             joinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-    private Set<User> members;
+    private List<User> members;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
+    private List<TaskGroup> taskGroups;
 
     @ManyToOne
     @JoinColumn(name = "creator_id")

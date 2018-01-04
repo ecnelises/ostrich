@@ -1,0 +1,59 @@
+.navbar-wrapper {
+  width: 100%;
+}
+
+.snipper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.projects-involved {
+  font-weight: normal;
+  font-size: 20px;
+  margin: 18px 6px 10px 0;
+}
+
+.project-list-wrapper {
+  width: 80%;
+  margin: 18px auto;
+}
+
+.project-item {
+  padding: 14px 12px 2px 12px;
+  margin-bottom: 14px;
+}
+
+.project-item:hover {
+  cursor: pointer;
+  box-shadow: 0 0 6px #666666;
+  transition: box-shadow 0.218s ease;
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project-left {
+  flex: 1;
+}
+
+.project-right {
+  margin-bottom: 6px;
+  margin-right: 18px;
+}
+
+.project-title {
+  font-size: 20px;
+}
+
+.project-description {
+  font-size: 12px;
+}
+
+.feat-icon {
+  width: 20px;
+}

@@ -30,7 +30,11 @@ import { LoginService } from './login/login.service';
 import { HttpModule } from '@angular/http';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {ChatService} from "./chat/chat.service";
-
+import { MatMenuModule } from '@angular/material'
+import { ProjectListComponent } from './project-list/project-list.component'
+import { NavigationBarComponent } from './navigation-bar/navigation-bar.component'
+import { ProjectListService } from './project-list/project-list.service'
+import { AuthModule } from './auth.module'
 
 @NgModule({
   declarations: [
@@ -46,6 +50,9 @@ import {ChatService} from "./chat/chat.service";
     FileComponent,
     CalendarDialogComponent,
     NotificationComponent
+    ProjectListComponent,
+    NavigationBarComponent,
+    DashboardNewDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +63,7 @@ import {ChatService} from "./chat/chat.service";
     HttpClientModule,
     MatToolbarModule,
     MatButtonModule,
+    MatDialogModule,
     MatInputModule,
     MatFormFieldModule,
     MatCardModule,
@@ -70,12 +78,24 @@ import {ChatService} from "./chat/chat.service";
     HttpClientModule,
     HttpModule,
     MatProgressBarModule,
-    MatSelectModule
+    MatSelectModule,
+    MatMenuModule,
+    AuthModule,
+    MatProgressSpinnerModule,
+  ],
+  providers: [
+    DashboardService,
+    HomeService,
+    CalendarService,
+    FileService,
+    ChatService,
+    LoginService,
+    ProjectListService
   ],
   entryComponents: [
+    DashboardNewDialogComponent,
     CalendarDialogComponent,
   ],
-  providers: [HomeService, CalendarService, ChatService, FileService, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

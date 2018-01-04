@@ -5,23 +5,13 @@ import org.angularbaby.ostrich.entity.Task;
 import org.angularbaby.ostrich.entity.TaskGroup;
 import org.angularbaby.ostrich.exception.AuthorizeFailedException;
 import org.angularbaby.ostrich.request.TaskRequest;
+import org.angularbaby.ostrich.request.ToggleTaskRequest;
 import org.angularbaby.ostrich.response.TaskResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/tasks")
 public class TasksController extends ApplicationBaseController {
-
-    @RequestMapping(method = RequestMethod.POST)
-    public TaskResponse addTask(@RequestBody TaskRequest request) {
-        TaskGroup group = taskGroupsRepository.findOne(request.getTaskGroupId());
-        if (!group.getProject().getMembers().contains(currentUser())) {
-            throw new AuthorizeFailedException();
-        }
-        Task task = new Task(request.getContent(), group, currentUser());
-        tasksRepository.save(task);
-        return new TaskResponse(task);
-    }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
     public String deleteTask(@PathVariable("id") Long id) {
@@ -35,13 +25,9 @@ public class TasksController extends ApplicationBaseController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{id}/toggle")
-    public TaskResponse toggleTask(@PathVariable("id") Long id, @RequestBody Boolean done) {
+    public TaskResponse toggleTask(@PathVariable("id") Long id, @RequestBody ToggleTaskRequest done) {
         Task task = tasksRepository.findOne(id);
-        Project project = task.getTaskGroup().getProject();
-        if (!project.getMembers().contains(currentUser())) {
-            throw new AuthorizeFailedException();
-        }
-        task.setDone(done);
+        task.setDone(done.getStatus());
         tasksRepository.save(task);
         return new TaskResponse(task);
     }

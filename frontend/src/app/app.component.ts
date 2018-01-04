@@ -27,7 +27,7 @@ export class AppComponent implements OnInit{
     if (!localStorage.getItem('token')) {
       this.router.navigateByUrl('/login');
     } else {
-      this.router.navigateByUrl('/dashboard');
+      this.router.navigateByUrl('/projects')
     }
   }
 

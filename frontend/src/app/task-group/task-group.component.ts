@@ -1,18 +1,19 @@
 import { Component, OnInit, transition } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
-import { TaskGroupService } from './task-group.service';
 import { Injectable, trigger, state, style } from '@angular/core';
 import { animate } from '@angular/core';
 import { stagger, query } from '@angular/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { TaskModel } from './task-group.model';
+import { TaskModel, TaskGroupModel } from './task-group.model';
+import { Input } from '@angular/core';
+import { DashboardService } from '../dashboard/dashboard.service';
 
 @Component({
   selector: 'app-task-group',
   templateUrl: './task-group.component.html',
   styleUrls: ['./task-group.component.css'],
-  providers: [TaskGroupService],
+  providers: [],
   animations: [
     trigger('toggleCompletionAnimation', [
       state('undone', style({ opacity: 1 })),
@@ -25,38 +26,26 @@ import { TaskModel } from './task-group.model';
 
 @Injectable()
 export class TaskGroupComponent implements OnInit {
+  @Input() group: TaskGroupModel
+  service: DashboardService
 
-  tasksStore: TaskGroupService
-
-  constructor(tasksService: TaskGroupService) {
-    this.tasksStore = tasksService
+  constructor(service: DashboardService) {
+    this.service = service
   }
 
   ngOnInit() {
   }
 
   getFinishedTasks() {
-    return this.tasksStore.getFinishedTasks()
+    return this.group.tasks.filter(task => task.done)
   }
 
   getUnfinishedTasks() {
-    return this.tasksStore.getUnfinishedTasks()
+    return this.group.tasks.filter(task => !task.done)
   }
 
   toggleTask(task: TaskModel) {
-    if (task.finished) {
-      this.tasksStore.undoFinishTask(task)
-    } else {
-      this.tasksStore.finishTask(task)
-    }
+    task.done = !task.done
+    this.service.setTaskDone(task, task.done)
   }
-
-  cardDragStart(event) {
-    console.log('Drag started', event)
-  }
-
-  cardDragEnd(event) {
-    console.log('Drag ended', event)
-  }
-
 }

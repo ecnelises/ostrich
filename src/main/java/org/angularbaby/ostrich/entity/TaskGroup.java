@@ -12,6 +12,10 @@ import java.util.List;
 @Table(name = "task_groups")
 public class TaskGroup {
 
+    public TaskGroup() {
+        this.createdAt = new Date();
+    }
+
     public TaskGroup(String name, Project project) {
         this.name = name;
         this.tasks = new ArrayList<>();
@@ -73,5 +77,4 @@ public class TaskGroup {
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
-
 }
