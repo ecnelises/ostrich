@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 
 @Component({
@@ -16,7 +16,7 @@ export class AppComponent {
     if (!localStorage.getItem('token')) {
       this.router.navigateByUrl('/login')
     } else {
-      this.router.navigateByUrl('/dashboard')
+      this.router.navigateByUrl('/projects')
     }
   }
 }

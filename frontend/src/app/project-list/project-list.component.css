@@ -1,0 +1,39 @@
+.navbar-wrapper {
+  width: 100%;
+}
+
+.project-list-wrapper {
+  width: 80%;
+  margin: 18px auto;
+}
+
+.project-item {
+  padding: 14px 12px 2px 12px;
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project-left {
+  flex: 1;
+}
+
+.project-right {
+  margin-bottom: 6px;
+  margin-right: 18px;
+}
+
+.project-title {
+  font-size: 20px;
+}
+
+.project-description {
+  font-size: 12px;
+}
+
+.feat-icon {
+  width: 20px;
+}

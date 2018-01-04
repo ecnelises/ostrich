@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
         'plus',
-        sanitizer.bypassSecurityTrustResourceUrl('assets/pic/plus-icon.svg'));
+        sanitizer.bypassSecurityTrustResourceUrl('assets/pic/plus-icon.svg'))
   }
 
   ngOnInit() {
