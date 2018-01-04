@@ -26,7 +26,7 @@ import { DashboardService } from './dashboard/dashboard.service'
 import { HttpModule } from '@angular/http'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatMenuModule } from '@angular/material'
-import { ProjectListComponent } from './project-list/project-list.component'
+import { ProjectListComponent, NewProjectDialogComponent } from './project-list/project-list.component'
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component'
 import { ProjectListService } from './project-list/project-list.service'
 import { AuthModule } from './auth.module'
@@ -48,6 +48,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
     NavigationBarComponent,
     DashboardNewDialogComponent,
     DashboardNewDialogGroupComponent,
+    NewProjectDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,6 +89,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
   entryComponents: [
     DashboardNewDialogComponent,
     DashboardNewDialogGroupComponent,
+    NewProjectDialogComponent,
   ],
   bootstrap: [AppComponent]
 })
