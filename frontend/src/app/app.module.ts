@@ -16,7 +16,6 @@ import { MatToolbarModule, MatButtonModule, MatInputModule,
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { TaskGroupComponent } from './task-group/task-group.component';
-import {DashboardComponent, DashboardNewDialogComponent} from './dashboard/dashboard.component';
 import { ChatComponent} from './chat/chat.component';
 import { CalendarService} from "./calendar/calendar.service";
 import { CalendarPrototypeComponent } from "./calendar/calendar/calendar";
@@ -30,12 +29,14 @@ import { LoginService } from './login/login.service';
 import { HttpModule } from '@angular/http';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {ChatService} from "./chat/chat.service";
-import { MatMenuModule, MatProgressSpinnerModule } from '@angular/material'
+import { MatMenuModule, MatProgressSpinnerModule, MatTabsModule } from '@angular/material'
+import { DashboardComponent, DashboardNewDialogComponent, DashboardNewDialogGroupComponent } from './dashboard/dashboard.component'
 import { ProjectListComponent } from './project-list/project-list.component'
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component'
 import { ProjectListService } from './project-list/project-list.service'
 import { AuthModule } from './auth.module'
 import {DashboardService} from "./dashboard/dashboard.service";
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import {DashboardService} from "./dashboard/dashboard.service";
     ProjectListComponent,
     NavigationBarComponent,
     DashboardNewDialogComponent,
+    DashboardNewDialogGroupComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,6 +77,7 @@ import {DashboardService} from "./dashboard/dashboard.service";
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTooltipModule,
     MatSnackBarModule,
     HttpClientModule,
     HttpModule,
@@ -82,7 +85,9 @@ import {DashboardService} from "./dashboard/dashboard.service";
     MatSelectModule,
     MatMenuModule,
     AuthModule,
+    MatTabsModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
   ],
   providers: [
     DashboardService,
@@ -96,6 +101,7 @@ import {DashboardService} from "./dashboard/dashboard.service";
   entryComponents: [
     DashboardNewDialogComponent,
     CalendarDialogComponent,
+    DashboardNewDialogGroupComponent,
   ],
   bootstrap: [AppComponent]
 })

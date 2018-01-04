@@ -10,7 +10,15 @@
   <footer class="dashboard-foot"></footer>
 </div>
 <div class="add-icon-wrapper">
-  <button mat-fab color="primary" (click)="openDialog()">
+  <mat-menu #newMenu="matMenu">
+    <button mat-menu-item (click)="newTaskDialog()">
+      <span>创建任务</span>
+    </button>
+    <button mat-menu-item (click)="newTaskGroupDialog()">
+      <span>创建任务组</span>
+    </button>
+  </mat-menu>
+  <button mat-fab color="primary" [matMenuTriggerFor]="newMenu">
     <mat-icon svgIcon="plus"></mat-icon>
   </button>
 </div>
