@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material'
 import {NotificationService} from "./notification/notification.service";
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -25,11 +24,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!localStorage.getItem('token')) {
-      this.router.navigateByUrl('/login');
-    } else {
-      this.router.navigateByUrl('/projects');
-    }
   }
 
   initializeWebSocketConnection(userId: string) {

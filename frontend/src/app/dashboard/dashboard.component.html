@@ -1,7 +1,7 @@
-<div class="navbar-wrapper">
-  <app-navigation-bar></app-navigation-bar>
-</div>
 <div class="dashboard-wrapper">
+  <div class="navbar-wrapper">
+    <app-navigation-bar></app-navigation-bar>
+  </div>
   <div class="task-groups">
     <div class="task-wrapper" *ngFor="let group of getTaskGroups()">
       <app-task-group [group]="group"></app-task-group>

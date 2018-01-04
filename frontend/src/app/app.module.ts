@@ -49,6 +49,10 @@ import { ProjectListService } from './project-list/project-list.service'
 import { AuthModule } from './auth.module'
 import {DashboardService} from "./dashboard/dashboard.service";
 import { MatTooltipModule } from '@angular/material/tooltip'
+import { JoinInvitationComponent } from './project-list/join-invitation/join-invitation.component'
+import { RegisterService } from './register/register.service'
+import { RegisterConfirmationService } from './register/confirmation/register-confirmation.service'
+import { RegisterConfirmationComponent } from './register/confirmation/register-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +76,8 @@ import { MatTooltipModule } from '@angular/material/tooltip'
     InviteMembersDialogComponent,
     ProjectDetailDialogComponent,
     LeaveProjectDialogComponent,
+    JoinInvitationComponent,
+    RegisterConfirmationComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,7 +118,9 @@ import { MatTooltipModule } from '@angular/material/tooltip'
     FileService,
     ChatService,
     LoginService,
-    ProjectListService
+    ProjectListService,
+    RegisterService,
+    RegisterConfirmationService,
   ],
   entryComponents: [
     DashboardNewDialogComponent,

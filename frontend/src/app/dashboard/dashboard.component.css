@@ -15,11 +15,12 @@
 
 .task-groups {
   margin-top: 10px;
+  margin-left: 10px;
   position: relative;
   flex: 1;
   overflow-x: scroll;
   overflow-y: hidden;
-  min-width: 100%;
+  min-width: 80%;
   display: flex;
   height: 300px;
 }

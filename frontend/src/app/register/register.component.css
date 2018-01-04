@@ -1,0 +1,25 @@
+.login-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+  background-image: url('/assets/pic/login-background.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.card-wrapper {
+  align-self: center;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form > * {
+  width: 100%;
+}
+
+.login-form input {
+  font-size: 16px;
+}

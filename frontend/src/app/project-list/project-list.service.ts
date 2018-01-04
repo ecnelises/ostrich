@@ -35,4 +35,15 @@ export class ProjectListService {
   leaveProject(project: ProjectModel) {
     return this.authHttp.put('/api/projects/' + String(project.id) + '/leave', '').toPromise()
   }
+
+  getProject(projectId: number) {
+    return this.authHttp.get('/api/projects/' + String(projectId))
+      .toPromise()
+      .then(response => response.json())
+      .then(obj => new ProjectModel(obj.title, obj.description, obj.id))
+  }
+
+  joinProject(project: ProjectModel) {
+    return this.authHttp.put('/api/projects/' + String(project.id) + '/join', '').toPromise()
+  }
 }

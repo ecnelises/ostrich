@@ -35,17 +35,11 @@ public class ApplicationBaseController {
     protected StringRedisTemplate redisTemplate;
 
     User currentUser() {
-        if (this.user != null) {
-            return this.user;
-        }
         Long currentUserId = (Long) context.getAttribute("current_user_id");
         if (currentUserId == null) {
             return null;
         } else {
-            this.user = usersRepository.findOne(currentUserId);
-            return this.user;
+            return usersRepository.findOne(currentUserId);
         }
     }
-
-    private User user;
 }
