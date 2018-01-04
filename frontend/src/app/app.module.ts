@@ -31,7 +31,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {ChatService} from "./chat/chat.service";
 import { MatMenuModule, MatProgressSpinnerModule, MatTabsModule } from '@angular/material'
 import { DashboardComponent, DashboardNewDialogComponent, DashboardNewDialogGroupComponent } from './dashboard/dashboard.component'
-import { ProjectListComponent } from './project-list/project-list.component'
+import { ProjectListComponent, NewProjectDialogComponent } from './project-list/project-list.component'
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component'
 import { ProjectListService } from './project-list/project-list.service'
 import { AuthModule } from './auth.module'
@@ -56,6 +56,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
     NavigationBarComponent,
     DashboardNewDialogComponent,
     DashboardNewDialogGroupComponent,
+    NewProjectDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -102,6 +103,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
     DashboardNewDialogComponent,
     CalendarDialogComponent,
     DashboardNewDialogGroupComponent,
+    NewProjectDialogComponent,
   ],
   bootstrap: [AppComponent]
 })

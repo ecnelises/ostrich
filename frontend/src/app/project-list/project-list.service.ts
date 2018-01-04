@@ -16,4 +16,15 @@ export class ProjectListService {
       .then(result => result.json())
       .then(obj => Promise.resolve(obj.map(proj => new ProjectModel(proj.title, proj.description, proj.id))))
   }
+
+  createProject(title: string, description: string, projects: ProjectModel[]) {
+    return this.authHttp.post('/api/projects', { title: title, description: description })
+      .toPromise()
+      .then(result => result.json())
+      .then(obj => {
+        let project = new ProjectModel(obj.title, obj.description, obj.id)
+        projects.push(project)
+        return project
+      })
+  }
 }
