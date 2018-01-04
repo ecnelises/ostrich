@@ -1,5 +1,6 @@
 package org.angularbaby.ostrich.web;
 
+import org.angularbaby.ostrich.annotation.NeedsAuthentication;
 import org.angularbaby.ostrich.entity.ChatMessage;
 import org.angularbaby.ostrich.entity.User;
 import org.angularbaby.ostrich.repository.ChatMessageRepository;
@@ -22,21 +23,20 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
-public class WebSocketController {
+public class WebSocketController extends ApplicationBaseController{
 
-    @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/public")
-    public String sendToAllMessage(@Payload String chatMessage) {
+    @MessageMapping("/toOneMessage")
+    public void sendToUserMessage(@Payload String chatMessage) {
         JsonParser parser = JsonParserFactory.getJsonParser();
         Map<String, Object> object = parser.parseMap(chatMessage);
         // 存储
+
         Long sender = new Long((int)object.get("sender"));
         String content = (String)object.get("content");
+        Long receiver = new Long((int)object.get("receiver"));
 
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
-
         Date sendTime = new Date();
-
         try {
             sendTime = format.parse((String) object.get("sendTime"));
         }
@@ -44,25 +44,21 @@ public class WebSocketController {
 
         }
 
-        return new JSONObject()
-                .put("sender", sender.toString())
-                .put("content", content)
-                .put("sendTime", sendTime.toString())
-                .toString();
+        template.convertAndSendToUser(receiver.toString(), "/message", chatMessage);
+        template.convertAndSendToUser(sender.toString(), "/message", chatMessage);
     }
 
-    @MessageMapping("/message")
-    public String sendToUserMessage(@Payload String chatMessage) {
+    @MessageMapping("/toAllMessage")
+    public void sendToAllMessage(@Payload String chatMessage) {
 
         JsonParser parser = JsonParserFactory.getJsonParser();
         Map<String, Object> object = parser.parseMap(chatMessage);
-        // 存储
 
         Long sender = new Long((int)object.get("sender"));
+        Long subjectId = new Long((int)object.get("subjectId"));
         String content = (String)object.get("content");
 
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
-
         Date sendTime = new Date();
 
         try {
@@ -71,14 +67,11 @@ public class WebSocketController {
         catch (Exception e){
 
         }
-        System.out.println("message to user");
-        template.convertAndSendToUser("2", "/message", chatMessage);
 
-        return new JSONObject()
-                .put("sender", sender.toString())
-                .put("content", content)
-                .put("sendTime", sendTime.toString())
-                .toString();
+        Set<User> users = projectsRepository.findOne(subjectId).getMembers();
+        for(Iterator<User> iterator = users.iterator(); iterator.hasNext();){
+            template.convertAndSendToUser(iterator.next().getId().toString(), "/message", chatMessage);
+        }
     }
 
     @MessageMapping("/notification")
@@ -86,12 +79,13 @@ public class WebSocketController {
 
         JsonParser parser = JsonParserFactory.getJsonParser();
         Map<String, Object> object = parser.parseMap(notification);
-        ArrayList<Integer> userGroup = (ArrayList<Integer>) object.get("userGroup");
-        System.out.println(object.get("userGroup"));
-        System.out.println("notice");
 
-        for (int i = 0; i < userGroup.size(); i++){
-            template.convertAndSendToUser(userGroup.get(i).toString(), "/notification", notification);
+        Long subjectId = new Long(2);
+
+        Set<User> users = projectsRepository.findOne(subjectId).getMembers();
+        for(Iterator<User> iterator = users.iterator(); iterator.hasNext();){
+            template.convertAndSendToUser(iterator.next().getId().toString(), "/notification", notification);
+
         }
 
         return "";

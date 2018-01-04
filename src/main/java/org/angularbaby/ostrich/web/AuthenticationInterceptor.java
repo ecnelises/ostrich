@@ -56,15 +56,16 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
             Algorithm algorithm = Algorithm.HMAC256(JwtConfig.getSecret());
             JWTVerifier verifier = JWT.require(algorithm).withIssuer("ostrich").build();
             String token = authString.substring("Bearer".length()).trim();
+            System.out.println(token);
             DecodedJWT jwt = verifier.verify(token);
             String jsonPayload = new String(Base64.getDecoder().decode(jwt.getPayload()), StandardCharsets.UTF_8);
 
             // Parse JSON Payload.
             Map<String, Object> payload = JsonParserFactory.getJsonParser().parseMap(jsonPayload);
-            Date expire = new Date((long)payload.getOrDefault("exp", 0L));
-            if (expire.before(new Date())) {
-                return false;
-            }
+//            Date expire = new Date((long)payload.getOrDefault("exp", new Long(0)));
+//            if (expire.before(new Date())) {
+//                return false;
+//            }
             request.setAttribute("current_user_id", Long.valueOf(String.valueOf(payload.get("user_id"))));
         } catch (UnsupportedEncodingException | JWTVerificationException exception) {
             return false;

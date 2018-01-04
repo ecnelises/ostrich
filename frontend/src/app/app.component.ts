@@ -1,7 +1,8 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
 import {AppService} from "./app.service";
+import { Router } from '@angular/router';
 import {NotificationService} from "./notification/notification.service";
 
 
@@ -14,12 +15,20 @@ import {NotificationService} from "./notification/notification.service";
   providers: [AppService]
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit{
   private serverUrl = 'http://127.0.0.1:8080/ws'
   private stompClient;
 
-  constructor(public as: AppService) {
+  constructor(public as: AppService, private router: Router) {
     this.initializeWebSocketConnection();
+  }
+
+  ngOnInit() {
+    if (!localStorage.getItem('token')) {
+      this.router.navigateByUrl('/login');
+    } else {
+      this.router.navigateByUrl('/dashboard');
+    }
   }
 
   initializeWebSocketConnection() {

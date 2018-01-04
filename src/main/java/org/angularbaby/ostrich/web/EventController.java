@@ -1,5 +1,6 @@
 package org.angularbaby.ostrich.web;
 
+import org.angularbaby.ostrich.annotation.NeedsAuthentication;
 import org.angularbaby.ostrich.entity.Event;
 import org.angularbaby.ostrich.entity.User;
 import org.angularbaby.ostrich.repository.EventRepository;
@@ -19,7 +20,9 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/events", produces = MediaType.APPLICATION_JSON_VALUE)
-public class EventController {
+public class EventController extends ApplicationBaseController{
+
+    @NeedsAuthentication
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@RequestBody String param) {
         JsonParser parser = JsonParserFactory.getJsonParser();
@@ -28,6 +31,8 @@ public class EventController {
         System.out.println((String) object.get("startTime"));
 
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+
+        User user = super.currentUser();
 
         Date startTime = new Date();
         Date endTime = new Date();
@@ -46,7 +51,7 @@ public class EventController {
         String content = (String)object.get("content");
         try {
             //todo 权限控制
-            Event event = new Event(new Long(1), startTime, endTime, remindTime, title, content);
+            Event event = new Event(user.getId(), startTime, endTime, remindTime, title, content);
             eventRepository.save(event);
             return new JSONObject()
                     .put("status", "ok")
@@ -76,11 +81,13 @@ public class EventController {
         }
     }
 
+    @NeedsAuthentication
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
+        User user = currentUser();
+        System.out.println(user);
         try {
-            //todo 权限控制
-            List<Event> events = eventRepository.findAll();
+            List<Event> events = eventRepository.findAllByUserId(user.getId());
             return new JSONObject()
                     .put("events", events)
                     .toString();

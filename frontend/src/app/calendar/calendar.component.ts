@@ -5,7 +5,6 @@ import {Component, Inject, ElementRef} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {CalendarDialogComponent} from "../calendar-dialog/calendar-dialog.component";
 
-
 @Component({
   selector: 'app-calendar',
   templateUrl: 'calendar.component.html',

@@ -26,6 +26,7 @@ public class UsersController extends ApplicationBaseController {
     @RequestMapping(method = RequestMethod.PUT, path = "/profile")
     public ChangeProfileResponse changeProfile(@RequestBody ChangeProfileRequest request) {
         User user = currentUser();
+        System.out.println(user);
         if (request.getAddress() != null) {
             user.setAddress(request.getAddress());
         }
