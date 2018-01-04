@@ -13,6 +13,7 @@ import { JoinInvitationComponent } from './project-list/join-invitation/join-inv
 import { RegisterComponent } from './register/register.component'
 import { RegisterConfirmationService } from './register/confirmation/register-confirmation.service';
 import { RegisterConfirmationComponent } from './register/confirmation/register-confirmation.component';
+import {NotificationComponent} from "./notification/notification.component";
 
 const projectRoutes: Routes = [
   { path: 'chat/:chat_person_id', component: ChatComponent },
@@ -32,7 +33,11 @@ const routes: Routes = [
     children: projectRoutes
   },
   { path: 'confirm/:key', component: RegisterConfirmationComponent },
-  { path: 'join/:project_id', component: JoinInvitationComponent }
+  { path: 'join/:project_id', component: JoinInvitationComponent },
+  { path: 'chat', component: ChatComponent },
+  { path: 'calendar', component: CalendarComponent },
+  { path: 'notification', component: NotificationComponent },
+  { path: 'files', component: FileComponent },
 ]
 
 @NgModule({

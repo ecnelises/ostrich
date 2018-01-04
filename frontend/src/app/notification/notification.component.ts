@@ -32,7 +32,17 @@ export class NotificationComponent implements OnInit {
     let that = this;
     this.ns.getNotifications()
       .then(res => {
-        that.notifications = res['notifications'];
+        console.log(res);
+        that.notifications = [];
+        let nicknames = res['nicknames'];
+        let messages = res['messages'];
+        for (let i = 0; i < nicknames.length; i++){
+          let tmp = {
+            sender: nicknames[i],
+            message: messages[i]
+          }
+          that.notifications.push(tmp);
+        }
       })
   }
 

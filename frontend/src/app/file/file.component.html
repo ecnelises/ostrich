@@ -1,113 +1,116 @@
+<div>
+  <mat-card >
 
-<div class="navigator" style="background-color: #558B2F;">
-  <h1 >
-  文件管理
-</h1>
-</div>
-<h2>
-  当前文件
-</h2>
-<button (click)="goback()">返回上一级</button>
-<button (click)="newfolder(foldername.value); foldername.value=''">新建文件夹</button>
-<input #foldername />
-<div class="current-content">
-<table width="80%">
+    <mat-card-title>文件</mat-card-title>
+    <mat-card-subtitle>当前文件</mat-card-subtitle>
+    <button type="submit" class="primary" (click)="goback()">返回上一级</button>
+    <button type="submit" class="primary" (click)="newfolder(foldername.value); foldername.value=''">新建文件夹</button>
+    <input #foldername />
+    <mat-card class="current-content">
+      <table width="80%">
 
-<thead>
-  <tr>
-    <th width="30%">名称</th>
-      <th width="20%" >类型</th>
-      <th width="20%">大小</th>
-      <th width="20%">更新时间</th>
-      <th width="15%">下载</th>
+        <thead>
+        <tr>
+          <th width="30%">名称</th>
+          <th width="20%" >类型</th>
+          <th width="20%">大小</th>
+          <th width="20%">更新时间</th>
+          <th width="15%">下载</th>
 
-  </tr>
-</thead>
+        </tr>
+        </thead>
 
-<tbody>
+        <tbody>
 
-    <tr *ngFor="let file of files" (click)="onSelect(file)" (dblclick)="jump(file)" [class.selected]="file === selectedFile">
-    <td>{{file.filename}}</td>
-    <td>{{file.kind}}</td>
-    <td>{{file.size}}</td>
-    <td>{{file.LastModified}}</td>
-    <a href={{file.Url}} download={{file.filename}}>
-      <td><button mat-icon-button  class="delete" type="button">下载</button></td>
-    </a>
-    <td><button mat-icon-button class="delete" type="button" (click)="delete(file); $event.stopPropagation()">删除</button></td>
-  </tr>
-</tbody>
-</table>
-</div>
+        <tr *ngFor="let file of files" (click)="onSelect(file)" (dblclick)="jump(file)" [class.selected]="file === selectedFile">
+          <td>{{file.filename}}</td>
+          <td>{{file.kind}}</td>
+          <td>{{file.size}}</td>
+          <td>{{file.LastModified}}</td>
+          <a href={{file.Url}} download={{file.filename}}>
+            <td><button mat-icon-button  class="delete" type="button">下载</button></td>
+          </a>
+          <td><button mat-icon-button class="delete" type="button" (click)="delete(file); $event.stopPropagation()">删除</button></td>
+        </tr>
+        </tbody>
+      </table>
+    </mat-card>
 
-  <div class="Up" width="100%">
-   <div class="upload-action">
-  <h3>上传文件</h3>
+    <mat-card class="Up" width="100%">
+      <div class="upload-action">
+        <div id="upload-files">
+          <h3>上传文件</h3>
 
 
-  单个上传
-  <input  mat-mini-fab color="primary" type="file" ng2FileSelect [uploader]="uploader" />
+          <span>单个上传</span>
+          <input class="raise-button"  mat-mini-fab color="primary" type="file" ng2FileSelect [uploader]="uploader" />
 
-  多个上传
-  <input type="file" ng2FileSelect [uploader]="uploader" multiple  ><br/>
-
-  <div class="multiple-action">
-    <button mat-raised-button color="red" type="button" (click)="uploader.uploadAll()" (click)="showfiles" [disabled]="!uploader.getNotUploadedItems().length">
-        上传全部文件
-      </button>
-      <button mat-raised-button color="warn" type="button" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
-        全部取消
-      </button>
-            <button mat-raised-button color="warn" type="button" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
-        全部移除
-      </button>
-</div>
+          <span>多个上传</span>
+          <input class="raise-button" type="file" ng2FileSelect [uploader]="uploader" multiple  ><br/>
+        </div>
 
 
-
-  <h3>待上传队列</h3>
-  <p>未被上传的文件数 {{ uploader?.queue?.length }}</p>
-  <p> 执行进度： {{uploader.progress}}% </p>
-  </div>
-  <div class="upload-content" >
-  <table class="table" width="100%" >
-    <thead>
-    <tr>
-     <th width="30%">名称</th>
-      <th width="15%">大小</th>
-      <th width="15%">上传进度</th>
-      <th width="20%">上传状态</th>
-      <th width="20%">操作</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <tr *ngFor="let item of uploader.queue">
-      <td><strong>{{ item?.file?.name }}</strong></td>
-      <td>{{ item?.file?.size/1024/1024 | number:'.2' }} MB </td>
-
-      <td>
-       {{item.progress}} %  </td>
-
-      <td>
-        <span *ngIf="item.isSuccess">OK</span>
-        <span *ngIf="item.isCancel">Cancel</span>
-        <span *ngIf="item.isError">Error</span>
-      </td>
-
-      <td>
-        <button mat-fab  type="button"  (click)="item.upload()" (click)="showfiles" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-          上传
+        <button mat-raised-button class="raise-button" color="red" type="button" (click)="uploader.uploadAll()" (click)="showfiles" [disabled]="!uploader.getNotUploadedItems().length">
+          上传全部文件
         </button>
-        <button mat-fab  type="button" (click)="item.cancel()" [disabled]="!item.isUploading">
-          取消
+        <button mat-raised-button class="raise-button" color="warn" type="button" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+          全部取消
         </button>
-        <button mat-fab  type="button"  (click)="item.remove()">
-          删除
+        <button mat-raised-button class="raise-button" color="warn" type="button" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+          全部移除
         </button>
-      </td>
-    </tr>
-    </tbody>
-    </table>
-  </div>
-  </div>
+
+
+
+        <h3>待上传队列</h3>
+        <p>未被上传的文件数 {{ uploader?.queue?.length }}</p>
+        <p> 执行进度： {{uploader.progress}}% </p>
+
+
+      </div>
+      <div width="15%"></div>
+      <mat-card class="upload-content" >
+        <table class="table" width="100%" >
+          <thead>
+          <tr>
+            <th width="30%">名称</th>
+            <th width="15%">大小</th>
+            <th width="15%">上传进度</th>
+            <th width="20%">上传状态</th>
+            <th width="20%">操作</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr *ngFor="let item of uploader.queue">
+            <td><strong>{{ item?.file?.name }}</strong></td>
+            <td>{{ item?.file?.size/1024/1024 | number:'.2' }} MB </td>
+
+            <td>
+              {{item.progress}} %  </td>
+
+            <td>
+              <span *ngIf="item.isSuccess">OK</span>
+              <span *ngIf="item.isCancel">Cancel</span>
+              <span *ngIf="item.isError">Error</span>
+            </td>
+
+            <td class="op">
+              <button mat-fab  type="button"  (click)="item.upload()" (click)="showfiles" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                上传
+              </button>
+              <button mat-fab  type="button" (click)="item.cancel()" [disabled]="!item.isUploading">
+                取消
+              </button>
+              <button mat-fab  type="button"  (click)="item.remove()">
+                删除
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </mat-card>
+    </mat-card>
+
+  </mat-card>
+</div>

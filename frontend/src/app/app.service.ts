@@ -8,11 +8,14 @@ export class AppService {
 
   }
 
-  createNotification(sender: number, message: string) {
+  createNotification(senderId: string, sender: string, message: string) {
     return this.http.post("/api/notifications/create", {
-      sender: sender.toString(),
+      senderId: senderId,
+      sender: sender,
       message: message
-    }
+    }, {
+        headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}
+      }
     ).toPromise();
   }
 }

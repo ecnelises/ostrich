@@ -21,6 +21,14 @@ public class Notification {
         this.userId = userId;
     }
 
+    public String getSenderNickname() {
+        return senderNickname;
+    }
+
+    public void setSenderNickname(String senderNickname) {
+        this.senderNickname = senderNickname;
+    }
+
     public String getMessage() {
         return message;
     }
@@ -28,17 +36,6 @@ public class Notification {
     public void setMessage(String message) {
         this.message = message;
     }
-
-    public Notification(){
-        super();
-    }
-
-    public Notification(User userId, User sender, String message){
-        this.userId = userId;
-        this.sender = sender;
-        this.message = message;
-    };
-
 
     @Id
     @GeneratedValue
@@ -48,18 +45,18 @@ public class Notification {
     @JoinColumn(name = "userid")
     private User userId;
 
-    public User getSender() {
-        return sender;
+    @Column(nullable = false)
+    private String senderNickname;
+
+    public Notification(User userId, String senderNickname, String message) {
+        this.userId = userId;
+        this.senderNickname = senderNickname;
+        this.message = message;
     }
 
-    public void setSender(User sender) {
-        this.sender = sender;
+    public Notification(){
+        super();
     }
-
-    @ManyToOne
-    @JoinColumn(name = "sender")
-    private User sender;
-
     @Column(nullable = false)
     private String message;
 
