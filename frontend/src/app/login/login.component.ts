@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private snackBar: MatSnackBar) {
-    this.progressBarExists = false
+    this.progressBarExists = false;
   }
 
   ngOnInit() { }
@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
       .then(response => {
         localStorage.setItem('token', response.token)
         localStorage.setItem('token-expire', String(response.expire.getTime()))
+        localStorage.setItem('userId', response.userId.toString())
         this.progressBarExists = false
       })
       .catch(error => {

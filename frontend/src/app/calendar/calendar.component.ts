@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { ElementRef } from '@angular/core';
 import * as $ from 'jquery';
 import 'fullcalendar';
 import { CalendarService } from "./calendar.service";
+import {Component, Inject, ElementRef} from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {CalendarDialogComponent} from "../calendar-dialog/calendar-dialog.component";
 
 @Component({
   selector: 'app-calendar',
@@ -11,7 +12,7 @@ import { CalendarService } from "./calendar.service";
   providers: [CalendarService],
 })
 
-export class CalendarComponent{
+export class CalendarComponent {
 
   eventStartTime: any;
   eventEndTime: any;
@@ -33,29 +34,15 @@ export class CalendarComponent{
     eventContent: String,
     navLinks: true, // can click day/week names to navigate views
     dayClick: function(date, jsEvent, view) {
-      // change the day's background color just for fun
-      document.getElementById('event-form').style.display = 'block';
+      $('#add').click();
     },
     eventClick: function(calEvent, jsEvent, view) {
       // change the border color just for fun
-      document.getElementById('event-detail-form').style.display = 'block';
-      document.getElementById('id').textContent = calEvent.id;
-      document.getElementById('title').textContent = calEvent.title;
-      document.getElementById('content').textContent = calEvent.content;
-      document.getElementById('st').textContent = calEvent.start;
-      document.getElementById('et').textContent = calEvent.end;
-      document.getElementById('rt').textContent = calEvent.remind;
+      document.getElementById('detail').className = calEvent.id;
+      $('#detail').addClass(calEvent.id);
+      $('#detail').click();
     }
   };
-
-  clearInput() {
-    this.eventId = null;
-    this.eventTitle = "";
-    this.eventContent = "";
-    this.eventStartTime = null;
-    this.eventEndTime = null;
-    this.eventRemindTime = null;
-  }
 
   addEventToArray(id, title, content, start, end, remind){
     let tmp = {
@@ -71,38 +58,7 @@ export class CalendarComponent{
     // $('angular2-fullcalendar').fullCalendar('option', 'height', 500);
   }
 
-  close() {
-    this.clearInput();
-    document.getElementById('event-detail-form').style.display = 'none';
-  }
-
-  removeevent() {
-    let eventId = document.getElementById('id').textContent;
-    this.cs.removeEvent(parseInt(eventId))
-      .then( res => {
-        $('angular2-fullcalendar').fullCalendar('removeEvents',[eventId]);
-        this.close();
-      });
-  }
-
-  addevent() {
-    if (this.eventTitle == "" ||this.eventContent == ""
-      || this.eventStartTime == null || !this.eventEndTime == null
-      || this.eventRemindTime == null){
-      alert("信息不完整！");
-      return;
-    }
-    console.log(this.eventStartTime);
-    this.cs.createEvent(this.eventTitle, this.eventContent,
-      this.eventStartTime, this.eventEndTime, this.eventRemindTime)
-      .then( res => {
-        this.addEventToArray(res["eventId"], this.eventTitle, this.eventContent, this.eventStartTime, this.eventEndTime, this.eventRemindTime);
-        document.getElementById('event-form').style.display = 'none';
-      }
-    );
-  }
-
-  constructor(private element:ElementRef, private cs:CalendarService) {
+  constructor(private element: ElementRef, private cs: CalendarService, public dialog: MatDialog) {
   }
 
   ngOnInit():void {
@@ -118,16 +74,71 @@ export class CalendarComponent{
           this.addEventToArray(o["id"], o["title"], o["content"], o["startTime"], o["endTime"], o["remindTime"]);
         }
       }
-    )
+    );
   }
 
-  hideThisForm(e: any){
-    this.clearInput();
-    e.target.style.display = 'none';
+  openDetailDialog(): void {
+    let id = document.getElementById('detail').className;
+    this.cs.findEvent(parseInt(id))
+      .then(res => {
+        let start = new Date();
+        start.setTime(Date.parse(res['eventStartTime']));
+        let end = new Date();
+        end.setTime(Date.parse(res['eventEndTime']));
+        let remind = new Date();
+        remind.setTime(Date.parse(res['eventRemindTime']));
+        let dialogRef = this.dialog.open(CalendarDialogComponent, {
+          width: '500px',
+          data: {
+            eventStartTime: start,
+            eventEndTime: end,
+            eventRemindTime: remind,
+            eventTitle: res['eventTitle'],
+            eventContent: res['eventContent'],
+            isDelete: true
+          }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result === true) {
+            this.cs.removeEvent(parseInt(id))
+              .then( res => {
+                $('angular2-fullcalendar').fullCalendar('removeEvents', [id]);
+              });
+          }
+          else {
+
+          }
+        });
+      });
   }
 
-  notHideThisForm(e: any){
-    e.stopPropagation();
+  openDialog(): void {
+    let dialogRef = this.dialog.open(CalendarDialogComponent, {
+      width: '500px',
+      data: {
+        eventStartTime: this.eventStartTime,
+        eventEndTime: this.eventEndTime,
+        eventRemindTime: this.eventRemindTime,
+        eventTitle: this.eventTitle,
+        eventContent: this.eventContent,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      let start = new Date();
+      start.setTime(result.eventStartTime.getTime() + 72000000);
+      let end = new Date();
+      end.setTime(result.eventEndTime.getTime() + 72000000);
+      let remind = new Date();
+      remind.setTime(result.eventRemindTime.getTime() + 72000000);
+      this.cs.createEvent(result.eventTitle, result.eventContent,
+        start.toISOString(), end.toISOString(), remind.toISOString())
+        .then( res => {
+            this.addEventToArray(res['eventId'], result.eventTitle, result.eventContent,
+              start.toISOString(), end.toISOString(), remind.toISOString());
+          }
+        );
+      console.log('The dialog was closed');
+    });
   }
 
   fullCalendar(...args: any[]) {

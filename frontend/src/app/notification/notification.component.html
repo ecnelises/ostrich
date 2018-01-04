@@ -1,0 +1,7 @@
+<div>
+    <mat-card *ngFor="let notification of notifications">
+      <mat-card-title class="notification-sender">{{notification.sender.nickname}}</mat-card-title>
+      <mat-card-content class="notification-message">{{notification.message}}</mat-card-content>
+    </mat-card>
+<button (click)="sendMessage()">Send</button>
+</div>

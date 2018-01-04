@@ -1,15 +1,24 @@
-
-
       <div id="chat-page">
         <div class="chat-container">
           <div class="chat-header">
             <h2>Ostrich Chat</h2>
           </div>
           <ul id="messageArea">
-            <li *ngFor="let message of messages; let i = index"></li>
+            <li *ngFor="let record of records; let i = index">
+              <span class="record-sender">{{record.sender}}</span>
+              <span class="record-sendTime">{{record.sendTime}}</span>
+              <p class="record-content">{{record.content}}</p>
+            </li>
           </ul>
           <form id="messageForm" name="messageForm" nameForm="messageForm">
             <div class="form-group">
+              <mat-form-field>
+                <mat-select placeholder="Send To" name="select" [(ngModel)]="selectedValue" (change)="clear()">
+                  <mat-option *ngFor="let user of users" [value]="user.value" >
+                    {{ user.viewValue }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
               <div class="input-group clearfix">
                 <input type="text" [(ngModel)]="message" [ngModelOptions]="{standalone: true}" id="message" placeholder="Type a message..." class="form-control"/>
                 <button type="submit" class="primary" (click)="sendMessage()">Send</button>

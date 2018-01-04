@@ -36,7 +36,6 @@ a:hover {
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 
-
 #chat-page ul li {
   line-height: 1.5rem;
   padding: 10px 20px;
@@ -66,13 +65,23 @@ a:hover {
   text-transform: uppercase;
 }
 
-.chat-message span {
+.record-sender{
   color: #333;
   font-weight: 600;
+  font-size: 16pt;
 }
 
-.chat-message p {
+.record-sendTime{
+  color: #333;
+  opacity: 0.5;
+  font-weight: 300;
+}
+
+.record-content{
   color: #43464b;
+  font-size: 18pt;
+  margin-top: 10px;
+  margin-left: 40px;
 }
 
 #messageForm .input-group input {
@@ -86,10 +95,6 @@ a:hover {
   height: 38px;
   margin-left: 5px;
 }
-
-
-//
-
 
 .fc {
   direction: ltr;
@@ -1501,3 +1506,15 @@ be a descendant of the grid when it is being dragged.
   background-color: #eee;
 }
 
+notification-sender {
+  margin-left: 10px;
+  margin-right: 8px;
+  font-size: 16pt;
+  font-weight: 600;
+}
+
+notification-message {
+  font-size: 16pt;
+  margin-left: 10px;
+  font-weight: 400;
+}
