@@ -9,11 +9,11 @@ import { FormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { Ng2DragDropModule } from 'ng2-drag-drop'
 import { HomeService } from "./home/home.service"
-import { MatToolbarModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatCardModule, MatListModule, MatCheckboxModule, MatIconModule, MatSnackBarModule, MatProgressSpinnerModule, MatDialogModule } from '@angular/material'
+import { MatToolbarModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatCardModule, MatListModule, MatCheckboxModule, MatIconModule, MatSnackBarModule, MatProgressSpinnerModule, MatDialogModule, MatTabsModule, MatSelectModule } from '@angular/material'
 import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component'
 import { TaskGroupComponent } from './task-group/task-group.component'
-import { DashboardComponent, DashboardNewDialogComponent } from './dashboard/dashboard.component'
+import { DashboardComponent, DashboardNewDialogComponent, DashboardNewDialogGroupComponent } from './dashboard/dashboard.component'
 import { ChatComponent} from './chat/chat.component'
 import { CalendarService} from "./calendar/calendar.service"
 import { CalendarPrototypeComponent } from "./calendar/calendar/calendar"
@@ -30,6 +30,7 @@ import { ProjectListComponent } from './project-list/project-list.component'
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component'
 import { ProjectListService } from './project-list/project-list.service'
 import { AuthModule } from './auth.module'
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { AuthModule } from './auth.module'
     ProjectListComponent,
     NavigationBarComponent,
     DashboardNewDialogComponent,
+    DashboardNewDialogGroupComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,13 +66,16 @@ import { AuthModule } from './auth.module'
     MatCheckboxModule,
     MatIconModule,
     FileUploadModule,
+    MatTooltipModule,
     MatSnackBarModule,
     HttpClientModule,
     HttpModule,
     MatProgressBarModule,
     MatMenuModule,
     AuthModule,
+    MatTabsModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
   ],
   providers: [
     DashboardService,
@@ -82,6 +87,7 @@ import { AuthModule } from './auth.module'
   ],
   entryComponents: [
     DashboardNewDialogComponent,
+    DashboardNewDialogGroupComponent,
   ],
   bootstrap: [AppComponent]
 })
