@@ -9,6 +9,7 @@ import { CalendarComponent } from "./calendar/calendar.component"
 import { FileComponent } from "./file/file.component"
 import { AppComponent } from "./app.component"
 import { ProjectListComponent } from "./project-list/project-list.component"
+import {NotificationComponent} from "./notification/notification.component";
 
 const projectRoutes: Routes = [
   {
@@ -29,11 +30,56 @@ const projectRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'dashboard'
-  }
+    redirectTo: '/dashboard'
+  },
+  {
+    path: 'notification',
+    component: NotificationComponent
+  },
 ]
 
 const routes: Routes = [
+  {
+    path: '',
+    component: AppComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  // {
+  //   path: 'projects',
+  //   component: ProjectComponent
+  // },
+  // {
+  //   path: 'projects/:project_id',
+  //   component: ProjectComponent,
+  //   children: projectRoutes
+  // }
+  {
+    path: 'chat',
+    component: ChatComponent
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent
+  },
+  {
+    path: 'calendar',
+    component: CalendarComponent
+  },
+  {
+    path: 'files',
+    component: FileComponent
+  },
+  {
+    path: 'files/:file_id',
+    component: FileComponent
+  },
+  {
+    path: 'notification',
+    component: NotificationComponent
+  },
   { path: '', component: AppComponent },
   { path: 'login', component: LoginComponent },
   { path: 'projects', component: ProjectListComponent },
@@ -43,7 +89,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule],
 })
 

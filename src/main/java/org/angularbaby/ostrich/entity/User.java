@@ -55,6 +55,90 @@ public class User {
 
     private Date registeredAt;
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDigestedPassword() {
+        return digestedPassword;
+    }
+
+    public void setDigestedPassword(String digestedPassword) {
+        this.digestedPassword = digestedPassword;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public Date getRegisteredAt() {
+        return registeredAt;
+    }
+
+    public void setRegisteredAt(Date registeredAt) {
+        this.registeredAt = registeredAt;
+    }
+
+    public Date getLastLoginAt() {
+        return lastLoginAt;
+    }
+
+    public void setLastLoginAt(Date lastLoginAt) {
+        this.lastLoginAt = lastLoginAt;
+    }
+
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
+    }
+
     private Date lastLoginAt;
 
     @ManyToMany(mappedBy = "members")

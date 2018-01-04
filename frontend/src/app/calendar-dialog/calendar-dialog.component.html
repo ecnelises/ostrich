@@ -1,0 +1,33 @@
+<div>
+  <mat-form-field  class="width">
+    <input matInput [(ngModel)]="data.eventTitle" placeholder="Title" value="">
+  </mat-form-field>
+
+  <mat-form-field class="width">
+    <textarea matInput [(ngModel)]="data.eventContent" placeholder="Leave a description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="width">
+    <input matInput [(ngModel)]="data.eventStartTime" [matDatepicker]="picker1" placeholder="Event start at">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="width">
+    <input matInput [(ngModel)]="data.eventEndTime" [matDatepicker]="picker2" placeholder="Event end at">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="width">
+    <input matInput [(ngModel)]="data.eventRemindTime" [matDatepicker]="picker3" placeholder="Choose a Remind Time">
+    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+    <mat-datepicker #picker3></mat-datepicker>
+  </mat-form-field>
+
+</div>
+<div id="button">
+  <button mat-raised-button *ngIf="!data.isDelete" type="submit" color="primary" [mat-dialog-close]="data">提交</button>
+  <button *ngIf="data.isDelete" mat-raised-button type="submit" color="primary" [mat-dialog-close]="data">关闭</button>
+  <button *ngIf="data.isDelete" mat-raised-button type="submit" color="primary" [mat-dialog-close]="data.isDelete">删除</button>
+</div>
