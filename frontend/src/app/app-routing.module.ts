@@ -16,10 +16,6 @@ const projectRoutes: Routes = [
     component: ChatComponent
   },
   {
-    path: 'dashboard',
-    component: DashboardComponent
-  },
-  {
     path: 'calendar',
     component: CalendarComponent
   },

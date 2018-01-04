@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { Ng2DragDropModule } from 'ng2-drag-drop'
 import { HomeService } from "./home/home.service"
-import { MatToolbarModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatCardModule, MatListModule, MatCheckboxModule, MatIconModule, MatSnackBarModule } from '@angular/material'
+import { MatToolbarModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatCardModule, MatListModule, MatCheckboxModule, MatIconModule, MatSnackBarModule, MatProgressSpinnerModule } from '@angular/material'
 import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component'
 import { TaskGroupComponent } from './task-group/task-group.component'
@@ -25,8 +25,10 @@ import { LoginService } from './login/login.service'
 import { HttpModule } from '@angular/http'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatMenuModule } from '@angular/material'
-import { ProjectListComponent } from './project-list/project-list.component';
+import { ProjectListComponent } from './project-list/project-list.component'
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component'
+import { ProjectListService } from './project-list/project-list.service'
+import { AuthModule } from './auth.module'
 
 @NgModule({
   declarations: [
@@ -64,8 +66,10 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
     HttpModule,
     MatProgressBarModule,
     MatMenuModule,
+    AuthModule,
+    MatProgressSpinnerModule,
   ],
-  providers: [HomeService, CalendarService, FileService, LoginService],
+  providers: [HomeService, CalendarService, FileService, LoginService, ProjectListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

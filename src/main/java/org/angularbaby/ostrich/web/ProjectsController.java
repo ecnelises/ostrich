@@ -6,6 +6,7 @@ import org.angularbaby.ostrich.entity.User;
 import org.angularbaby.ostrich.exception.AuthorizeFailedException;
 import org.angularbaby.ostrich.request.ProjectRequest;
 import org.angularbaby.ostrich.response.ProjectDetail;
+import org.angularbaby.ostrich.response.UserDetail;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -79,6 +80,18 @@ public class ProjectsController extends ApplicationBaseController {
             redisTemplate.opsForValue().set(expectedKey, "1");
         });
         return new ResponseEntity<>("", HttpStatus.CREATED);
+    }
+
+    @NeedsAuthentication
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ProjectDetail getProjectInformation(@PathVariable("id") Long id) {
+        return new ProjectDetail(projectsRepository.findOne(id));
+    }
+
+    @NeedsAuthentication
+    @RequestMapping(value = "/{id}/members", method = RequestMethod.GET)
+    public List<UserDetail> listMembers(@PathVariable("id") Long id) {
+        return projectsRepository.findOne(id).getMembers().stream().map(member -> new UserDetail(member)).collect(Collectors.toList());
     }
 
 }
