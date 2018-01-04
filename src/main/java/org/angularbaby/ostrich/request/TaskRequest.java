@@ -12,13 +12,5 @@ public class TaskRequest {
         this.content = content;
     }
 
-    public Long getTaskGroupId() {
-        return taskGroupId;
-    }
-
-    public void setTaskGroupId(Long taskGroupId) {
-        this.taskGroupId = taskGroupId;
-    }
-
     private String content;
 }

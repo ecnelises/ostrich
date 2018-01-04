@@ -13,11 +13,11 @@ public class Notification {
         return id;
     }
 
-    public Long getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 
@@ -33,7 +33,7 @@ public class Notification {
         super();
     }
 
-    public Notification(Long userId, Long sender, String message){
+    public Notification(User userId, User sender, String message){
         this.userId = userId;
         this.sender = sender;
         this.message = message;
@@ -44,19 +44,21 @@ public class Notification {
     @GeneratedValue
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL, targetEntity = User.class)
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "userid")
+    private User userId;
 
-    public Long getSender() {
+    public User getSender() {
         return sender;
     }
 
-    public void setSender(Long sender) {
+    public void setSender(User sender) {
         this.sender = sender;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, targetEntity = User.class)
-    private Long sender;
+    @ManyToOne
+    @JoinColumn(name = "sender")
+    private User sender;
 
     @Column(nullable = false)
     private String message;

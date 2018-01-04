@@ -29,20 +29,16 @@ export class NotificationComponent implements OnInit {
   }
 
   ngOnInit() {
-    let that = this;
     this.ns.getNotifications()
       .then(res => {
-        //
-      });
-    setInterval(function () {
-      that.notifications = NotificationService.notifications;
-    }, 500);
+        console.log(res);
+      })
   }
 
   sendMessage() {
     console.log(111);
     let chatMessage = {
-      userGroup: [1, 2, 3, 4],
+      userGroup: [1, 2, 3, 4, 101],
       sender: 5
     };
     this.stompClient.send('/app/notification' , {}, JSON.stringify(chatMessage));

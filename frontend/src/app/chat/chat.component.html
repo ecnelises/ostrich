@@ -4,7 +4,11 @@
             <h2>Ostrich Chat</h2>
           </div>
           <ul id="messageArea">
-            <li *ngFor="let message of messages; let i = index"></li>
+            <li *ngFor="let record of records; let i = index">
+              <span class="record-sender">{{record.sender}}</span>
+              <span class="record-sendTime">{{record.sendTime}}</span>
+              <p class="record-content">{{record.content}}</p>
+            </li>
           </ul>
           <form id="messageForm" name="messageForm" nameForm="messageForm">
             <div class="form-group">

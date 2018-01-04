@@ -18,13 +18,11 @@ public class ChatController extends ApplicationBaseController{
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(@RequestParam(name = "subjectId") Long id) {
         System.out.println(id);
-        Set<User> groupmates = projectsRepository.findOne(id).getMembers();
-        Set<Integer> set = new HashSet<Integer>();
-        set.add(5);
-        set.add(56);
+        List<User> groupmates = projectsRepository.findOne(id).getMembers();
+
         JSONObject test = new JSONObject();
 
-        for(Iterator<Integer> iterator = set.iterator(); iterator.hasNext();){
+        for(Iterator<User> iterator = groupmates.iterator(); iterator.hasNext();){
             test.put("t", iterator.next());
         }
         return new JSONObject()

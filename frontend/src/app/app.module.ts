@@ -16,7 +16,7 @@ import { MatToolbarModule, MatButtonModule, MatInputModule,
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { TaskGroupComponent } from './task-group/task-group.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import {DashboardComponent, DashboardNewDialogComponent} from './dashboard/dashboard.component';
 import { ChatComponent} from './chat/chat.component';
 import { CalendarService} from "./calendar/calendar.service";
 import { CalendarPrototypeComponent } from "./calendar/calendar/calendar";
@@ -30,11 +30,12 @@ import { LoginService } from './login/login.service';
 import { HttpModule } from '@angular/http';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {ChatService} from "./chat/chat.service";
-import { MatMenuModule } from '@angular/material'
+import { MatMenuModule, MatProgressSpinnerModule } from '@angular/material'
 import { ProjectListComponent } from './project-list/project-list.component'
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component'
 import { ProjectListService } from './project-list/project-list.service'
 import { AuthModule } from './auth.module'
+import {DashboardService} from "./dashboard/dashboard.service";
 
 @NgModule({
   declarations: [
@@ -49,7 +50,7 @@ import { AuthModule } from './auth.module'
     CalendarPrototypeComponent,
     FileComponent,
     CalendarDialogComponent,
-    NotificationComponent
+    NotificationComponent,
     ProjectListComponent,
     NavigationBarComponent,
     DashboardNewDialogComponent,

@@ -3,6 +3,7 @@ import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
 import * as $ from 'jquery';
 import {ChatService} from "./chat.service";
+import {ChatRecord} from "./chat.model";
 
 @Component({
   selector: 'app-chat',
@@ -17,56 +18,42 @@ export class ChatComponent {
   message: string;
 
   private id: number;
-  selectedValue = 'group';
+  selectedValue = 'group#0';
 
   users = [
-    {value: 'group', viewValue: 'Group'},
-    {value: 'user', viewValue: 'User'}
+    {value: 'group#0', viewValue: 'Group'},
+    {value: 'user#1', viewValue: 'User'},
   ];
 
+  chatrecords = [[], [], [], [], [], [], [], [], [], []];
+  records = [];
+
   constructor(private cs: ChatService) {
+    this.initializeWebSocketConnection(localStorage.getItem('userId'));
+    let that = this;
     this.cs.getData()
       .then(res => {
         console.log(res);
-        this.initializeWebSocketConnection();
-      });
+        that.users.push();
+        that.chatrecords.push([], []);
+        });
   }
 
   clear() {
-    document.getElementById('messageArea').innerHTML = '';
+    this.records = this.chatrecords[this.selectedValue.split('#')[1]];
     console.log("clear");
   }
 
-  initializeWebSocketConnection() {
+  initializeWebSocketConnection(userId: string) {
     let ws = new SockJS(this.serverUrl);
     this.stompClient = Stomp.over(ws);
     let that = this;
     this.stompClient.connect({}, function(frame) {
-      that.stompClient.subscribe('/user/' + 2 + '/message', (message) => {
+      that.stompClient.subscribe('/user/' + userId + '/message', (message) => {
         message = JSON.parse(message.body);
-
-        let messageElement = document.createElement('li');
-
-        messageElement.classList.add('chat-message');
-
-        let usernameElement = document.createElement('span');
-        let usernameText = document.createTextNode(message.sender);
-        usernameElement.appendChild(usernameText);
-        messageElement.appendChild(usernameElement);
-
-        let timeElement = document.createElement('span');
-        let timeText = document.createTextNode(message.sendTime);
-        timeElement.appendChild(timeText);
-        messageElement.appendChild(timeElement);
-
-        let textElement = document.createElement('p');
-        let messageText = document.createTextNode(message.content);
-        textElement.appendChild(messageText);
-
-        messageElement.appendChild(textElement);
-
-        $('#messageArea').append(messageElement);
-        $('#messageArea').scrollTop = $('#messageArea').scrollHeight;
+        console.log(that.chatrecords);
+        let record = new ChatRecord(message.sender, message.sendTime, message.content);
+        that.chatrecords[that.selectedValue.split('#')[1]].push(record);
       });
     });
   }
@@ -85,7 +72,7 @@ export class ChatComponent {
     else {
       let chatMessage = {
         sender: 123456,
-        receiver: 2, // todo
+        receiver: 101, // todo
         content: $('#message').val(),
         sendTime: new Date()
       };

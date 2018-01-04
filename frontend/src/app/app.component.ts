@@ -3,6 +3,7 @@ import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
 import {AppService} from "./app.service";
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material'
 import {NotificationService} from "./notification/notification.service";
 
 
@@ -15,32 +16,34 @@ import {NotificationService} from "./notification/notification.service";
   providers: [AppService]
 })
 
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   private serverUrl = 'http://127.0.0.1:8080/ws'
   private stompClient;
 
-  constructor(public as: AppService, private router: Router) {
-    this.initializeWebSocketConnection();
+  constructor(public as: AppService, private router: Router,  private snackBar: MatSnackBar) {
+    this.initializeWebSocketConnection(localStorage.getItem('userId'));
   }
 
   ngOnInit() {
     if (!localStorage.getItem('token')) {
       this.router.navigateByUrl('/login');
     } else {
-      this.router.navigateByUrl('/projects')
+      this.router.navigateByUrl('/projects');
     }
   }
 
-  initializeWebSocketConnection() {
+  initializeWebSocketConnection(userId: string) {
     let ws = new SockJS(this.serverUrl);
     this.stompClient = Stomp.over(ws);
     let that = this;
     this.stompClient.connect({}, function(frame) {
-      that.stompClient.subscribe('/user/' + 2 + '/notification', (notification) => {
+      that.stompClient.subscribe('/user/' + userId + '/notification', (notification) => {
         notification = JSON.parse(notification.body);
         that.as.createNotification(notification.sender, notification.message)
-          .then(res => {
-            NotificationService.notifications.push(notification);
+          .then(res  => {
+            that.snackBar.open('您有一条新消息', '确定', {
+              duration: 2000,
+            });
           });
       });
     });

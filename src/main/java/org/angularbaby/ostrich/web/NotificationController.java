@@ -2,7 +2,9 @@ package org.angularbaby.ostrich.web;
 
 import org.angularbaby.ostrich.annotation.NeedsAuthentication;
 import org.angularbaby.ostrich.entity.Notification;
+import org.angularbaby.ostrich.entity.User;
 import org.angularbaby.ostrich.repository.NotificationRepository;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JsonParser;
 import org.springframework.boot.json.JsonParserFactory;
@@ -19,14 +21,14 @@ import java.util.Map;
 @RequestMapping(value = "/api/notifications", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NotificationController extends ApplicationBaseController{
 
-    @NeedsAuthentication
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@RequestBody String param) {
         JsonParser parser = JsonParserFactory.getJsonParser();
         Map<String, Object> object = parser.parseMap(param);
 
-        Long userId = currentUser().getId();
-        Long sender = new Long((int)object.get("sender"));
+        User userId = currentUser();
+
+        User sender = currentUser();
         String message = (String)object.get("message");
 
         try {
@@ -42,11 +44,17 @@ public class NotificationController extends ApplicationBaseController{
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
         try {
-            List<Notification> notificationList = notificationRepository.findAllByUserId(currentUser().getId());
+            System.out.println(currentUser());
+            List<Notification> notificationList = notificationRepository.findAllByUserId(currentUser());
+            return new JSONObject()
+                    .put("notifications", notificationList)
+                    .toString();
         } catch (Exception e){
-
+            System.out.println(e);
+            return new JSONObject()
+                    .put("error", "error")
+                    .toString();
         }
-        return "";
     }
 
     @Autowired

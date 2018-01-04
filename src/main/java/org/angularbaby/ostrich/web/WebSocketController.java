@@ -68,10 +68,10 @@ public class WebSocketController extends ApplicationBaseController{
 
         }
 
-        Set<User> users = projectsRepository.findOne(subjectId).getMembers();
-        for(Iterator<User> iterator = users.iterator(); iterator.hasNext();){
-            template.convertAndSendToUser(iterator.next().getId().toString(), "/message", chatMessage);
-        }
+//        Set<User> users = projectsRepository.findOne(subjectId).getMembers();
+//        for(Iterator<User> iterator = users.iterator(); iterator.hasNext();){
+//            template.convertAndSendToUser(iterator.next().getId().toString(), "/message", chatMessage);
+//        }
     }
 
     @MessageMapping("/notification")
@@ -82,11 +82,13 @@ public class WebSocketController extends ApplicationBaseController{
 
         Long subjectId = new Long(2);
 
-        Set<User> users = projectsRepository.findOne(subjectId).getMembers();
-        for(Iterator<User> iterator = users.iterator(); iterator.hasNext();){
-            template.convertAndSendToUser(iterator.next().getId().toString(), "/notification", notification);
+//        Set<User> users = projectsRepository.findOne(subjectId).getMembers();
+//        for(Iterator<User> iterator = users.iterator(); iterator.hasNext();){
+//            template.convertAndSendToUser(iterator.next().getId().toString(), "/notification", notification);
+//
+//        }
 
-        }
+        template.convertAndSendToUser("101", "/notification", notification);
 
         return "";
     }
