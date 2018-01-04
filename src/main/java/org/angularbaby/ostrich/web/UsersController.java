@@ -6,6 +6,8 @@ import org.angularbaby.ostrich.request.ChangeProfileRequest;
 import org.angularbaby.ostrich.request.RegisterRequest;
 import org.angularbaby.ostrich.response.ChangeProfileResponse;
 import org.angularbaby.ostrich.response.RegisterResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,10 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class UsersController extends ApplicationBaseController {
 
     @RequestMapping(method = RequestMethod.POST)
-    public RegisterResponse register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest request) {
         User user = new User(request.getEmail(), request.getPassword(), request.getNickname());
         usersRepository.save(user);
-        return new RegisterResponse(user.getEmail());
+        return new ResponseEntity<>(new RegisterResponse(user.getEmail()), HttpStatus.CREATED);
     }
 
     @NeedsAuthentication

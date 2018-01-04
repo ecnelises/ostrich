@@ -3,13 +3,25 @@ package org.angularbaby.ostrich.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 @Entity
-@Table(name = "subjects")
+@Table(name = "projects")
 @Data
 public class Project {
+    public Project(String title, String description) {
+        this.title = title;
+        this.description = description;
+        this.createdAt = new Date();
+        this.members = new ArrayList<>();
+    }
+
+    public Project() {
+        this.createdAt = new Date();
+    }
+
     @Id
     @GeneratedValue
     private Long id;
@@ -23,7 +35,7 @@ public class Project {
     @JoinTable(name = "users_projects",
             joinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-    private Set<User> members;
+    private List<User> members;
 
     @ManyToOne
     @JoinColumn(name = "creator_id")

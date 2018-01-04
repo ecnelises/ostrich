@@ -1,5 +1,84 @@
 package org.angularbaby.ostrich.web;
 
-public class ProjectsController {
+import org.angularbaby.ostrich.annotation.NeedsAuthentication;
+import org.angularbaby.ostrich.entity.Project;
+import org.angularbaby.ostrich.entity.User;
+import org.angularbaby.ostrich.exception.AuthorizeFailedException;
+import org.angularbaby.ostrich.request.ProjectRequest;
+import org.angularbaby.ostrich.response.ProjectDetail;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RestController
+@RequestMapping("/api/projects")
+public class ProjectsController extends ApplicationBaseController {
+
+    @NeedsAuthentication
+    @RequestMapping(method = RequestMethod.GET)
+    public List<ProjectDetail> listMyProjects() {
+        List<Project> projects = projectsRepository.findAllByMembers(currentUser());
+        return projects.stream().map(project -> new ProjectDetail(project)).collect(Collectors.toList());
+    }
+
+    @NeedsAuthentication
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<ProjectDetail> createNewProject(@RequestBody ProjectRequest request) {
+        Project project = new Project(request.getTitle(), request.getDescription());
+        project.setCreator(currentUser());
+        projectsRepository.save(project);
+        project.getMembers().add(currentUser());
+        projectsRepository.save(project);
+        return new ResponseEntity<>(new ProjectDetail(project), HttpStatus.CREATED);
+    }
+
+    @NeedsAuthentication
+    @RequestMapping(value = "/{id}/join", method = RequestMethod.PUT)
+    public String joinProject(@PathVariable("id") Long id) {
+        Project project = projectsRepository.findOne(id);
+
+        // If there is an invitation
+        String expectedKey = String.format("invproj-%d-%d", id, currentUser().getId());
+        if (redisTemplate.opsForValue().get(expectedKey) != null) {
+            // Here we cannot use contains method because of lazy initialization of association.
+            if (project.getMembers().stream().noneMatch(
+                    member -> member.getId().equals(currentUser().getId()))) {
+                project.getMembers().add(currentUser());
+                projectsRepository.save(project);
+            }
+            redisTemplate.delete(expectedKey);
+        } else {
+            throw new AuthorizeFailedException();
+        }
+        return "";
+    }
+
+    @NeedsAuthentication
+    @RequestMapping(value = "/{id}/leave", method = RequestMethod.PUT)
+    public String leaveProject(@PathVariable("id") Long id) {
+        Project project = projectsRepository.findOne(id);
+        if (project.getMembers().stream().anyMatch(
+                member -> member.getId().equals(currentUser().getId()))) {
+            project.getMembers().remove(currentUser());
+            projectsRepository.save(project);
+        }
+        return "";
+    }
+
+    @NeedsAuthentication
+    @RequestMapping(value = "/{id}/invite", method = RequestMethod.POST)
+    public ResponseEntity<String> invitePeople(@PathVariable("id") Long id, @RequestBody List<String> emails) {
+        Project project = projectsRepository.findOne(id);
+        List<User> members = project.getMembers().stream().collect(Collectors.toList());
+        List<User> users = usersRepository.findUsersByEmail(emails);
+        users.stream().filter(user -> !members.contains(user)).forEach(user -> {
+            final String expectedKey = String.format("invproj-%d-%d", id, user.getId());
+            redisTemplate.opsForValue().set(expectedKey, "1");
+        });
+        return new ResponseEntity<>("", HttpStatus.CREATED);
+    }
 
 }
