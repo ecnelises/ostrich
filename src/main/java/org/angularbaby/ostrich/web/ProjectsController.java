@@ -64,11 +64,9 @@ public class ProjectsController extends ApplicationBaseController {
     @RequestMapping(value = "/{id}/leave", method = RequestMethod.PUT)
     public String leaveProject(@PathVariable("id") Long id) {
         Project project = projectsRepository.findOne(id);
-        if (project.getMembers().stream().anyMatch(
-                member -> member.getId().equals(currentUser().getId()))) {
-            project.getMembers().remove(currentUser());
-            projectsRepository.save(project);
-        }
+        project.setMembers(project.getMembers().stream().filter(
+                member -> !member.getId().equals(currentUser().getId())).collect(Collectors.toList()));
+        projectsRepository.save(project);
         return "";
     }
 

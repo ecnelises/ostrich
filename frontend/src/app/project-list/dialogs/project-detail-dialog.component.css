@@ -1,0 +1,18 @@
+/* TODO: Combine these styles */
+.new-group-dialog {
+  width: 400px;
+  height: 200px;
+  position: fixed;
+  left: 50%;
+  margin-left: 10px;
+  margin-right: 10px;
+  transform: translateX(-50%);
+}
+
+.full-field {
+  width: 80%;
+}
+
+.project-description {
+  margin-bottom: 20px;
+}

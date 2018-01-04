@@ -28,10 +28,22 @@ import { NotificationComponent } from './notification/notification.component';
 import { LoginService } from './login/login.service';
 import { HttpModule } from '@angular/http';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import {ChatService} from "./chat/chat.service";
+import { ChatService } from "./chat/chat.service";
 import { MatMenuModule, MatProgressSpinnerModule, MatTabsModule } from '@angular/material'
 import { DashboardComponent, DashboardNewDialogComponent, DashboardNewDialogGroupComponent } from './dashboard/dashboard.component'
-import { ProjectListComponent, NewProjectDialogComponent } from './project-list/project-list.component'
+import { ChatComponent} from './chat/chat.component'
+import { CalendarService} from "./calendar/calendar.service"
+import { CalendarPrototypeComponent } from "./calendar/calendar/calendar"
+import { CalendarComponent } from "./calendar/calendar.component"
+import { FileComponent } from "./file/file.component"
+import { FileService } from "./file/file.service"
+import { FileUploadModule } from 'ng2-file-upload'
+import { LoginService } from './login/login.service'
+import { DashboardService } from './dashboard/dashboard.service'
+import { HttpModule } from '@angular/http'
+import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { MatMenuModule } from '@angular/material'
+import { ProjectListComponent, NewProjectDialogComponent, InviteMembersDialogComponent, ProjectDetailDialogComponent, LeaveProjectDialogComponent } from './project-list/project-list.component'
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component'
 import { ProjectListService } from './project-list/project-list.service'
 import { AuthModule } from './auth.module'
@@ -57,6 +69,9 @@ import { MatTooltipModule } from '@angular/material/tooltip'
     DashboardNewDialogComponent,
     DashboardNewDialogGroupComponent,
     NewProjectDialogComponent,
+    InviteMembersDialogComponent,
+    ProjectDetailDialogComponent,
+    LeaveProjectDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -104,6 +119,9 @@ import { MatTooltipModule } from '@angular/material/tooltip'
     CalendarDialogComponent,
     DashboardNewDialogGroupComponent,
     NewProjectDialogComponent,
+    InviteMembersDialogComponent,
+    ProjectDetailDialogComponent,
+    LeaveProjectDialogComponent,
   ],
   bootstrap: [AppComponent]
 })
