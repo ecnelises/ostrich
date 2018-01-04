@@ -1,0 +1,13 @@
+.new-dialog {
+  width: 400px;
+  height: 280px;
+  position: fixed;
+  left: 50%;
+  margin-left: 10px;
+  margin-right: 10px;
+  transform: translateX(-50%);
+}
+
+.full-field {
+  width: 80%;
+}

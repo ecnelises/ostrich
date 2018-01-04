@@ -1,0 +1,17 @@
+<mat-dialog-content class="new-dialog">
+  <h1 mat-dialog-title>创建新任务</h1>
+  <form class="new-task-form">
+    <mat-form-field class="full-field">
+      <input matInput placeholder="任务名" name="taskName" [(ngModel)]="data.content" required>
+    </mat-form-field>
+    <mat-form-field class="full-field">
+      <mat-select placeholder="任务组" name="group" [(ngModel)]="data.selectedGroupId" required>
+        <mat-option *ngFor="let group of data.groups" [value]="group.id">{{group.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">取消</button>
+      <button mat-button [mat-dialog-close]="JSON.stringify({content: data.content, groupId: data.selectedGroupId})">创建</button>
+    </mat-dialog-actions>
+  </form>
+</mat-dialog-content>

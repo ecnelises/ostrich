@@ -7,6 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser'
 import { ProjectListService } from './project-list.service'
 import { ProjectModel } from './project-list.model'
 import { MatProgressSpinner } from '@angular/material'
+import { MatTooltip } from '@angular/material'
 
 @Component({
   selector: 'app-project-list',
