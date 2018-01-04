@@ -16,13 +16,13 @@
           </div>
           <div class="project-right">
             <div class="icons">
-              <button mat-icon-button matTooltip="邀请新用户">
+              <button mat-icon-button matTooltip="邀请新用户" (click)="inviteMember($event, project)">
                 <mat-icon svgIcon="add-user" class="feat-icon"></mat-icon>
               </button>
-              <button mat-icon-button matTooltip="查看项目详情">
+              <button mat-icon-button matTooltip="查看项目详情" (click)="seeDetail($event, project)">
                 <mat-icon svgIcon="detail" class="feat-icon"></mat-icon>
               </button>
-              <button mat-icon-button matTooltip="离开项目">
+              <button mat-icon-button matTooltip="离开项目" (click)="leaveProject($event, project)">
                 <mat-icon svgIcon="leave" class="feat-icon"></mat-icon>
               </button>
             </div>

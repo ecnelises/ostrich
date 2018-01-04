@@ -69,6 +69,53 @@ export class ProjectListComponent implements OnInit {
     })
   }
 
+  inviteMember(event: Event, project: ProjectModel) {
+    event.stopPropagation()
+    let dialogRef = this.dialog.open(InviteMembersDialogComponent, {
+      width: '420px',
+      height: '380px',
+      // TODO: Change this style
+      data: { project: project, email1: '', email2: '', email3: '' }
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      let resultObj = JSON.parse(result)
+      let emails = resultObj.emails.filter(email => email.length != 0)
+      this.service.inviteMembers(resultObj.project, emails).then(_ => {
+        this.snackBar.open('已发出邀请', '确定', {
+          duration: 2000,
+        })
+      })
+    })
+  }
+
+  seeDetail(event: Event, project: ProjectModel) {
+    event.stopPropagation()
+    let dialogRef = this.dialog.open(ProjectDetailDialogComponent, {
+      width: '420px',
+      height: '240px',
+      data: { project: project }
+    })
+  }
+
+  leaveProject(event: Event, project: ProjectModel) {
+    event.stopPropagation()
+    let dialogRef = this.dialog.open(LeaveProjectDialogComponent, {
+      width: '420px',
+      height: '240px',
+      data: { project: project }
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'yes') {
+        this.service.leaveProject(project).then(_ => {
+          this.projects = this.projects.filter(item => item.id != project.id)
+          this.snackBar.open('已退出项目', '确定', {
+            duration: 2000,
+          })
+        })
+      }
+    })
+  }
+
   private requestFailPrompt() {
     this.snackBar.open('请求失败，请重试', '确定', {
       duration: 2000,
@@ -78,8 +125,8 @@ export class ProjectListComponent implements OnInit {
 
 @Component({
   selector: 'app-new-project-dialog',
-  templateUrl: './new-project-dialog.component.html',
-  styleUrls: ['./new-project-dialog.component.css']
+  templateUrl: './dialogs/new-project-dialog.component.html',
+  styleUrls: ['./dialogs/new-project-dialog.component.css']
 })
 export class NewProjectDialogComponent {
   JSON: JSON
@@ -88,6 +135,57 @@ export class NewProjectDialogComponent {
     public dialogRef: MatDialogRef<NewProjectDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.JSON = JSON
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: 'app-invite-members-dialog',
+  templateUrl: './dialogs/invite-members.component.html',
+  styleUrls: ['./dialogs/invite-members.component.css']
+})
+export class InviteMembersDialogComponent {
+  JSON: JSON
+
+  constructor(
+    public dialogRef: MatDialogRef<InviteMembersDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.JSON = JSON
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: 'app-project-detail-dialog',
+  templateUrl: './dialogs/project-detail-dialog.component.html',
+  styleUrls: ['./dialogs/project-detail-dialog.component.css']
+})
+export class ProjectDetailDialogComponent {
+  constructor(
+    public dialogRef: MatDialogRef<ProjectDetailDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: 'app-leave-project-dialog',
+  templateUrl: './dialogs/leave-project-dialog.component.html',
+  styleUrls: ['./dialogs/leave-project-dialog.component.css']
+})
+export class LeaveProjectDialogComponent {
+  constructor(
+    public dialogRef: MatDialogRef<LeaveProjectDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   onNoClick(): void {

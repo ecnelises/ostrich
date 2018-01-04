@@ -1,0 +1,19 @@
+<mat-dialog-content class="new-group-dialog">
+  <h1 mat-dialog-title>邀请新成员加入项目 {{data.project.title}}</h1>
+  <!-- TODO: Change class name -->
+  <form class="new-task-form">
+    <mat-form-field class="full-field">
+      <input matInput placeholder="邮箱" name="email1" [(ngModel)]="data.email1" required>
+    </mat-form-field>
+    <mat-form-field class="full-field">
+      <input matInput placeholder="邮箱" name="email2" [(ngModel)]="data.email2" required>
+    </mat-form-field>
+    <mat-form-field class="full-field">
+      <input matInput placeholder="邮箱" name="email3" [(ngModel)]="data.email3" required>
+    </mat-form-field>
+    <mat-dialog-actions>
+      <button mat-button [mat-dialog-close]="JSON.stringify({project: data.project, emails: [data.email1, data.email2, data.email3]})">邀请</button>
+    </mat-dialog-actions>
+  </form>
+</mat-dialog-content>
+  

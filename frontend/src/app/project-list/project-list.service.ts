@@ -27,4 +27,12 @@ export class ProjectListService {
         return project
       })
   }
+
+  inviteMembers(project: ProjectModel, emails: string[])  {
+    return this.authHttp.post('/api/projects/' + String(project.id) + '/invite', emails).toPromise()
+  }
+
+  leaveProject(project: ProjectModel) {
+    return this.authHttp.put('/api/projects/' + String(project.id) + '/leave', '').toPromise()
+  }
 }
