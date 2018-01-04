@@ -1,31 +1,30 @@
-import UUID from 'node-uuid'
-
 export class TaskModel {
-  uuid: string
-  finished: boolean
-  title: string
+  done: boolean
   content: string
+  id: number
+  createdAt: Date
+  creatorId: number
+  groupId: number
 
-  constructor(title: string, content = '') {
-    this.uuid = UUID.v4()
-    this.finished = false
-    this.title = title
+  constructor(id: number, content: string, done: boolean,
+      createdAt: Date, creatorId: number, groupId: number) {
+    this.id = id
+    this.done = done
     this.content = content
+    this.createdAt = createdAt
+    this.creatorId = creatorId
+    this.groupId = groupId
   }
 }
 
 export class TaskGroupModel {
-  finishedTasks: Array<TaskModel>
-  unfinishedTasks: Array<TaskModel>
   name: string
+  tasks: TaskModel[]
+  id: number
   
-  constructor(name: string) {
-    this.finishedTasks = []
-    this.unfinishedTasks = []
+  constructor(id: number, name: string, tasks: TaskModel[]) {
+    this.tasks = tasks
     this.name = name
-  }
-
-  addTask(title: string) {
-    this.unfinishedTasks.push(new TaskModel(title))
+    this.id = id
   }
 }

@@ -8,12 +8,14 @@ import java.util.stream.Collectors;
 
 @Data
 public class TaskGroupDetail {
+    private Long id;
     private String title;
-    private List<Long> taskIds;
+    private List<TaskResponse> tasks;
 
     public TaskGroupDetail(TaskGroup group) {
         // TODO: Prevent N+1 query
+        this.id = group.getId();
         this.title = group.getName();
-        this.taskIds = group.getTasks().stream().map(task -> task.getId()).collect(Collectors.toList());
+        this.tasks = group.getTasks().stream().map(task -> new TaskResponse(task)).collect(Collectors.toList());
     }
 }

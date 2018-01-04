@@ -22,6 +22,7 @@ import { FileComponent } from "./file/file.component"
 import { FileService } from "./file/file.service"
 import { FileUploadModule } from 'ng2-file-upload'
 import { LoginService } from './login/login.service'
+import { DashboardService } from './dashboard/dashboard.service'
 import { HttpModule } from '@angular/http'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatMenuModule } from '@angular/material'
@@ -69,7 +70,14 @@ import { AuthModule } from './auth.module'
     AuthModule,
     MatProgressSpinnerModule,
   ],
-  providers: [HomeService, CalendarService, FileService, LoginService, ProjectListService],
+  providers: [
+    DashboardService,
+    HomeService,
+    CalendarService,
+    FileService,
+    LoginService,
+    ProjectListService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

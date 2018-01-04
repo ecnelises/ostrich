@@ -4,7 +4,7 @@
 <div class="dashboard-wrapper">
   <div class="task-groups">
     <div class="task-wrapper" *ngFor="let group of getTaskGroups()">
-      <app-task-group></app-task-group>
+      <app-task-group [group]="group"></app-task-group>
     </div>
   </div>
   <footer class="dashboard-foot"></footer>
