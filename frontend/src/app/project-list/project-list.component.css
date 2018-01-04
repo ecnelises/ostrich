@@ -57,3 +57,11 @@
 .feat-icon {
   width: 20px;
 }
+
+.add-icon-wrapper {
+  width: 80%;
+  height: 80%;
+  position: fixed;
+  left: 92%;
+  top: 85%;
+}

@@ -52,7 +52,9 @@ export class DashboardComponent implements OnInit {
     })
     dialogRef.afterClosed().subscribe(result => {
       let resultObj = JSON.parse(result)
-      this.service.addTask(resultObj.content, this.taskGroups.find(group => group.id == resultObj.groupId))
+      if (resultObj.content.length != 0) {
+        this.service.addTask(resultObj.content, this.taskGroups.find(group => group.id == resultObj.groupId))
+      }
     })
   }
 
@@ -63,7 +65,9 @@ export class DashboardComponent implements OnInit {
       data: { name: '' }
     })
     dialogRef.afterClosed().subscribe(result => {
-      this.service.addGroup(result, this.projectId, this.taskGroups)
+      if (result.length != 0) {
+        this.service.addGroup(result, this.projectId, this.taskGroups)
+      }
     })
   }
 
