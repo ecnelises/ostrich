@@ -85,7 +85,6 @@ public class EventController extends ApplicationBaseController{
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
         User user = currentUser();
-        System.out.println(user);
         try {
             List<Event> events = eventRepository.findAllByUserId(user.getId());
             return new JSONObject()

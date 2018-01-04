@@ -21,6 +21,7 @@ import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class WebSocketController extends ApplicationBaseController{
@@ -31,9 +32,9 @@ public class WebSocketController extends ApplicationBaseController{
         Map<String, Object> object = parser.parseMap(chatMessage);
         // 存储
 
-        Long sender = new Long((int)object.get("sender"));
+        Long sender = Long.valueOf((String) object.get("senderId"));
         String content = (String)object.get("content");
-        Long receiver = new Long((int)object.get("receiver"));
+        Long receiver = Long.valueOf((String) object.get("receiver"));
 
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
         Date sendTime = new Date();
@@ -54,9 +55,11 @@ public class WebSocketController extends ApplicationBaseController{
         JsonParser parser = JsonParserFactory.getJsonParser();
         Map<String, Object> object = parser.parseMap(chatMessage);
 
-        Long sender = new Long((int)object.get("sender"));
-        Long subjectId = new Long((int)object.get("subjectId"));
+        Long sender = Long.valueOf((String) object.get("senderId"));
+        Long subjectId = Long.valueOf((String) object.get("subjectId"));
         String content = (String)object.get("content");
+
+        System.out.println(subjectId);
 
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
         Date sendTime = new Date();
@@ -68,10 +71,12 @@ public class WebSocketController extends ApplicationBaseController{
 
         }
 
-//        Set<User> users = projectsRepository.findOne(subjectId).getMembers();
-//        for(Iterator<User> iterator = users.iterator(); iterator.hasNext();){
-//            template.convertAndSendToUser(iterator.next().getId().toString(), "/message", chatMessage);
-//        }
+        List<User> groupmates = projectsRepository.findOne(subjectId).getMembers().stream().collect(Collectors.toList());
+        List<Long> longs = new ArrayList<Long>();
+        for (Iterator<User> iterator = groupmates.iterator(); iterator.hasNext();){
+            User tmpUser = iterator.next();
+            template.convertAndSendToUser(tmpUser.getId().toString(), "/message", chatMessage);
+        }
     }
 
     @MessageMapping("/notification")
@@ -80,16 +85,17 @@ public class WebSocketController extends ApplicationBaseController{
         JsonParser parser = JsonParserFactory.getJsonParser();
         Map<String, Object> object = parser.parseMap(notification);
 
-        Long subjectId = new Long(2);
+        Long senderId = Long.valueOf((String) object.get("senderId"));
+        Long subjectId = Long.valueOf((String) object.get("subjectId"));
 
-//        Set<User> users = projectsRepository.findOne(subjectId).getMembers();
-//        for(Iterator<User> iterator = users.iterator(); iterator.hasNext();){
-//            template.convertAndSendToUser(iterator.next().getId().toString(), "/notification", notification);
-//
-//        }
-
-        template.convertAndSendToUser("101", "/notification", notification);
-
+        List<User> groupmates = projectsRepository.findOne(subjectId).getMembers().stream().collect(Collectors.toList());
+        List<Long> longs = new ArrayList<Long>();
+        for (Iterator<User> iterator = groupmates.iterator(); iterator.hasNext();) {
+            User tmpUser = iterator.next();
+            if (tmpUser.getId() != senderId) {
+                template.convertAndSendToUser(tmpUser.getId().toString(), "/notification", notification);
+            }
+        }
         return "";
     }
 

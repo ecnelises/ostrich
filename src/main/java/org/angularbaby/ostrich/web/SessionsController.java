@@ -40,7 +40,7 @@ public class SessionsController extends ApplicationBaseController {
                     .withClaim("user_id", user.getId())
                     .withClaim("exp", calendar.getTime())
                     .sign(algorithm);
-            return new LoginResponse(token, calendar.getTime(), user.getId());
+            return new LoginResponse(token, calendar.getTime(), user.getId(), user.getNickname());
         } catch (UnsupportedEncodingException exception) {
             throw new InternalException();
         }

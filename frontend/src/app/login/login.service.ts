@@ -10,7 +10,7 @@ export class LoginService {
     return this.http.post('/api/sessions', request, { headers: new Headers({'Content-Type': 'application/json'}) })
       .toPromise()
       .then(response => response.json())
-      .then(obj => new LoginResponse(obj.token, obj.expire, obj.userId))
+      .then(obj => new LoginResponse(obj.token, obj.expire, obj.userId, obj.nickname))
       .catch(error => Promise.reject(error || error.message))
   }
 }

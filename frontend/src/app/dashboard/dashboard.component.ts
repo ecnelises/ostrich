@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.projectId = this.router.snapshot.params['project_id']
+    localStorage.setItem('subjectId', this.projectId.toString())
     this.service.fetchGroups(this.projectId)
       .then(groups => this.taskGroups = groups)
   }

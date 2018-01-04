@@ -8,11 +8,11 @@ export class ChatService {
 
   }
 
-  getData() {
+  getData(subjectId: string) {
     return this.http.get('/api/chats/index',
       {
         params: {
-          'subjectId': location.href.length.toString()
+          'subjectId': subjectId
         },
         headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}
       }

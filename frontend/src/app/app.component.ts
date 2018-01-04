@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
     this.stompClient.connect({}, function(frame) {
       that.stompClient.subscribe('/user/' + userId + '/notification', (notification) => {
         notification = JSON.parse(notification.body);
-        that.as.createNotification(notification.sender, notification.message)
+        that.as.createNotification(notification.senderId, notification.sender, notification.message)
           .then(res  => {
             that.snackBar.open('您有一条新消息', '确定', {
               duration: 2000,
