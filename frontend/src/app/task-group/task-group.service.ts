@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { TaskModel, TaskGroupModel } from './task-group.model'
 
 export class TaskGroupService {
-
   taskGroup : TaskGroupModel
 
   constructor() {

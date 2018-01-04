@@ -2,10 +2,13 @@ package org.angularbaby.ostrich.web;
 
 import org.angularbaby.ostrich.annotation.NeedsAuthentication;
 import org.angularbaby.ostrich.entity.Project;
+import org.angularbaby.ostrich.entity.TaskGroup;
 import org.angularbaby.ostrich.entity.User;
 import org.angularbaby.ostrich.exception.AuthorizeFailedException;
+import org.angularbaby.ostrich.request.CreateTaskGroupRequest;
 import org.angularbaby.ostrich.request.ProjectRequest;
 import org.angularbaby.ostrich.response.ProjectDetail;
+import org.angularbaby.ostrich.response.TaskGroupDetail;
 import org.angularbaby.ostrich.response.UserDetail;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -92,6 +95,23 @@ public class ProjectsController extends ApplicationBaseController {
     @RequestMapping(value = "/{id}/members", method = RequestMethod.GET)
     public List<UserDetail> listMembers(@PathVariable("id") Long id) {
         return projectsRepository.findOne(id).getMembers().stream().map(member -> new UserDetail(member)).collect(Collectors.toList());
+    }
+
+    @NeedsAuthentication
+    @RequestMapping(value = "{id}/groups", method = RequestMethod.GET)
+    public List<TaskGroupDetail> listTaskGroups(@PathVariable("id") Long id) {
+        // TODO: Authenticate if current user belongs to the project.
+        return projectsRepository.findOne(id).getTaskGroups().stream()
+                .map(group -> new TaskGroupDetail(group)).collect(Collectors.toList());
+    }
+
+    @NeedsAuthentication
+    @RequestMapping(value = "{id}/groups", method = RequestMethod.POST)
+    public ResponseEntity<TaskGroupDetail> addNewGroup(@PathVariable("id") Long id, @RequestBody CreateTaskGroupRequest request) {
+        Project project = projectsRepository.findOne(id);
+        TaskGroup group = new TaskGroup(request.getName(), project);
+        taskGroupsRepository.save(group);
+        return new ResponseEntity<>(new TaskGroupDetail(group), HttpStatus.CREATED);
     }
 
 }

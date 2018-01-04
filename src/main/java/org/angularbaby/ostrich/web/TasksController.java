@@ -12,17 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/tasks")
 public class TasksController extends ApplicationBaseController {
 
-    @RequestMapping(method = RequestMethod.POST)
-    public TaskResponse addTask(@RequestBody TaskRequest request) {
-        TaskGroup group = taskGroupsRepository.findOne(request.getTaskGroupId());
-        if (!group.getProject().getMembers().contains(currentUser())) {
-            throw new AuthorizeFailedException();
-        }
-        Task task = new Task(request.getContent(), group, currentUser());
-        tasksRepository.save(task);
-        return new TaskResponse(task);
-    }
-
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
     public String deleteTask(@PathVariable("id") Long id) {
         Task task = tasksRepository.findOne(id);

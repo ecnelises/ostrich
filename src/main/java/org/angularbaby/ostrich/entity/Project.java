@@ -37,6 +37,9 @@ public class Project {
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private List<User> members;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
+    private List<TaskGroup> taskGroups;
+
     @ManyToOne
     @JoinColumn(name = "creator_id")
     private User creator;
