@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button'
 import { MatMenu } from '@angular/material/menu'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -9,9 +10,14 @@ import { MatMenu } from '@angular/material/menu'
 })
 export class NavigationBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
+  logOut() {
+    localStorage.removeItem('token')
+    localStorage.removeItem('token-expire')
+    this.router.navigateByUrl('/login')
+  }
 }

@@ -2,10 +2,14 @@ package org.angularbaby.ostrich.web;
 
 import org.angularbaby.ostrich.annotation.NeedsAuthentication;
 import org.angularbaby.ostrich.entity.User;
+import org.angularbaby.ostrich.exception.AuthorizeFailedException;
 import org.angularbaby.ostrich.request.ChangeProfileRequest;
 import org.angularbaby.ostrich.request.RegisterRequest;
 import org.angularbaby.ostrich.response.ChangeProfileResponse;
 import org.angularbaby.ostrich.response.RegisterResponse;
+import org.angularbaby.ostrich.service.MailingMessageSender;
+import org.angularbaby.ostrich.service.RandomString;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +25,18 @@ public class UsersController extends ApplicationBaseController {
     public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest request) {
         User user = new User(request.getEmail(), request.getPassword(), request.getNickname());
         usersRepository.save(user);
+        String key = (new RandomString(24)).nextString();
+        redisTemplate.opsForValue().set("cfm-" + key, "1");
+        this.sender.sendConfirmation(user, user.getEmail(), key);
         return new ResponseEntity<>(new RegisterResponse(user.getEmail()), HttpStatus.CREATED);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/confirm")
+    public ResponseEntity<String> confirmRegistration(@RequestBody String key) {
+        if (redisTemplate.opsForValue().get("cfm-" + key) == null) {
+            throw new AuthorizeFailedException();
+        }
+        return new ResponseEntity<>("", HttpStatus.CREATED);
     }
 
     @NeedsAuthentication
@@ -48,5 +63,8 @@ public class UsersController extends ApplicationBaseController {
                 user.getNickname(), user.getDescription(), user.getAddress(),
                 user.getContact(), user.getLastLoginAt(), user.getRegisteredAt());
     }
+
+    @Autowired
+    MailingMessageSender sender;
 
 }

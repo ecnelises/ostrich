@@ -13,10 +13,5 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    if (!localStorage.getItem('token')) {
-      this.router.navigateByUrl('/login')
-    } else {
-      this.router.navigateByUrl('/projects')
-    }
   }
 }

@@ -6,6 +6,7 @@ import { LoginService } from './login.service'
 import { MatSnackBar } from '@angular/material'
 import { LoginRequest } from './login.model'
 import { MatProgressBar } from '@angular/material/progress-bar';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    private router: Router) {
     this.progressBarExists = false
   }
 
@@ -35,6 +37,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('token', response.token)
         localStorage.setItem('token-expire', String(response.expire.getTime()))
         this.progressBarExists = false
+        this.router.navigateByUrl('/projects')
       })
       .catch(error => {
         this.loginFailPrompt()

@@ -26,18 +26,18 @@ public class SessionsController extends ApplicationBaseController {
     @RequestMapping(method = RequestMethod.POST)
     public LoginResponse login(@RequestBody LoginRequest request) {
         try {
-            List<User> users = usersRepository.findByEmail(request.getEmail());
-            if (users.isEmpty() || !users.get(0).matchPassword(request.getPassword())) {
+            User user = usersRepository.findByEmail(request.getEmail());
+            if (user == null || !user.matchPassword(request.getPassword())) {
                 throw new AuthorizeFailedException();
             }
-            users.get(0).setLastLoginAt(new Date());
-            usersRepository.save(users.get(0));
+            user.setLastLoginAt(new Date());
+            usersRepository.save(user);
             Algorithm algorithm = Algorithm.HMAC256(JwtConfig.getSecret());
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
             calendar.add(Calendar.DATE, 1);
             String token = JWT.create().withIssuer("ostrich")
-                    .withClaim("user_id", users.get(0).getId())
+                    .withClaim("user_id", user.getId())
                     .withClaim("exp", calendar.getTime())
                     .sign(algorithm);
             return new LoginResponse(token, calendar.getTime());

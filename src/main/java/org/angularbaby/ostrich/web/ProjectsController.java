@@ -10,6 +10,8 @@ import org.angularbaby.ostrich.request.ProjectRequest;
 import org.angularbaby.ostrich.response.ProjectDetail;
 import org.angularbaby.ostrich.response.TaskGroupDetail;
 import org.angularbaby.ostrich.response.UserDetail;
+import org.angularbaby.ostrich.service.MailingMessageSender;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +26,7 @@ public class ProjectsController extends ApplicationBaseController {
     @NeedsAuthentication
     @RequestMapping(method = RequestMethod.GET)
     public List<ProjectDetail> listMyProjects() {
-        List<Project> projects = projectsRepository.findAllByMembers(currentUser());
+        List<Project> projects = projectsRepository.findByMembers(currentUser());
         return projects.stream().map(project -> new ProjectDetail(project)).collect(Collectors.toList());
     }
 
@@ -78,6 +80,7 @@ public class ProjectsController extends ApplicationBaseController {
         List<User> users = usersRepository.findUsersByEmail(emails);
         users.stream().filter(user -> !members.contains(user)).forEach(user -> {
             final String expectedKey = String.format("invproj-%d-%d", id, user.getId());
+            mailSender.sendInvitation(project, user.getEmail());
             redisTemplate.opsForValue().set(expectedKey, "1");
         });
         return new ResponseEntity<>("", HttpStatus.CREATED);
@@ -111,5 +114,8 @@ public class ProjectsController extends ApplicationBaseController {
         taskGroupsRepository.save(group);
         return new ResponseEntity<>(new TaskGroupDetail(group), HttpStatus.CREATED);
     }
+
+    @Autowired
+    private MailingMessageSender mailSender;
 
 }

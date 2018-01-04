@@ -1,3 +1,27 @@
-<p>
-  register works!
-</p>
+<div class="login-container">
+  <div class="card-wrapper">
+    <mat-progress-bar class="example-margin" *ngIf="progressBarExists" mode="indeterminate"></mat-progress-bar>
+    <mat-card>
+      <mat-card-title>注册</mat-card-title>
+      <mat-card-subtitle>注册以成为 Ostrich 的新用户</mat-card-subtitle>
+      <mat-card-content>
+        <form class="login-form" (submit)="submitRegister()">
+          <mat-form-field>
+            <input matInput type="email" placeholder="电子邮箱地址" name="email" [(ngModel)]="email" required>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="text" placeholder="昵称" name="nickname" [(ngModel)]="nickname" required>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="password" placeholder="密码" name="password" [(ngModel)]="password" required>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="password" placeholder="确认密码" name="passwordConfirmation" [(ngModel)]="passwordConfirmation" required>
+          </mat-form-field>
+          <button mat-raised-button type="submit" color="primary">提交</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+  

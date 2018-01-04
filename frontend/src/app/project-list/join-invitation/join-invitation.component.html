@@ -1,0 +1,8 @@
+<mat-dialog-content class="new-group-dialog">
+  <h1 mat-dialog-title>加入项目</h1>
+  <span>确定要加入项目「{{projectTitle}}」吗？</span>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button [routerLink]="['/']">取消</button>
+  <button mat-button (click)="confirmJoin()">确认</button>
+</mat-dialog-actions>
