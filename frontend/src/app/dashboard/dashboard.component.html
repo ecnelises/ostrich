@@ -1,25 +1,16 @@
+<div class="navbar-wrapper">
+  <app-navigation-bar></app-navigation-bar>
+</div>
 <div class="dashboard-wrapper">
-  <div class="toolbar-wrapper">
-    <mat-toolbar color="primary">
-      <span>Ostrich</span>
-      <span class="fill-remaining-space"></span>
-      <span class="toolbar-right">
-        <a href="/#/file" mat-button>File</a>
-        <a href="/#/chat" mat-button>Chat</a>
-        <a href="/#/calendar" mat-button>Calendar</a>
-        <a mat-button>Me</a>
-      </span>
-    </mat-toolbar>
-  </div>
   <div class="task-groups">
     <div class="task-wrapper" *ngFor="let group of getTaskGroups()">
-      <app-task-group></app-task-group>
+      <app-task-group [group]="group"></app-task-group>
     </div>
   </div>
-  <div class="add-icon-wrapper">
-    <button mat-fab color="primary">
-      <mat-icon svgIcon="plus"></mat-icon>
-    </button>
-  </div>
   <footer class="dashboard-foot"></footer>
+</div>
+<div class="add-icon-wrapper">
+  <button mat-fab color="primary" (click)="openDialog()">
+    <mat-icon svgIcon="plus"></mat-icon>
+  </button>
 </div>

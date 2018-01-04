@@ -1,14 +1,12 @@
 <div class="card-group-wrapper">
-  <h3 class="card-group-title">Card Group 1</h3>
+  <h3 class="card-group-title">{{group.name}}</h3>
   <div class="card-list-wrapper">
     <mat-selection-list>
       <div class="card-wrapper" draggable
-        *ngFor="let task of getUnfinishedTasks()"
-        (dragstart)="cardDragStart($event)"
-        (dragend)="cardDragEnd($event)"
-        [@toggleCompletionAnimation]="task.finished ? 'done' : 'undone'">
+        [@toggleCompletionAnimation]="task.done ? 'done' : 'undone'"
+        *ngFor="let task of getUnfinishedTasks()">
         <mat-card>
-          <mat-card-content><mat-checkbox color="primary" (click)="toggleTask(task)" [ngModel]="task.finished">{{task.title}}</mat-checkbox></mat-card-content>
+          <mat-card-content><mat-checkbox color="primary" (click)="toggleTask(task)" [ngModel]="task.done">{{task.content}}</mat-checkbox></mat-card-content>
         </mat-card>
       </div>
     </mat-selection-list>
@@ -16,7 +14,7 @@
       <div class="card-wrapper"
         *ngFor="let task of getFinishedTasks()">
         <div class="card-finished">
-          <mat-card-content><mat-checkbox color="primary" (click)="toggleTask(task)" [ngModel]="task.finished">{{task.title}}</mat-checkbox></mat-card-content>
+          <mat-card-content><mat-checkbox color="primary" (click)="toggleTask(task)" [ngModel]="task.done">{{task.content}}</mat-checkbox></mat-card-content>
         </div>
       </div>
     </mat-selection-list>

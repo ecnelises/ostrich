@@ -1,0 +1,34 @@
+<div class="navbar-wrapper">
+  <app-navigation-bar></app-navigation-bar>
+</div>
+<div class="snipper">
+  <mat-progress-spinner color="primary" mode="indeterminate" *ngIf="showSnipper"></mat-progress-spinner>
+</div>
+<div class="project-list-wrapper">
+  <h1 class="projects-involved">我参与的项目</h1>
+  <mat-list>
+    <div class="card-wrapper" *ngFor="let project of this.projects">
+      <mat-card class="project-item" [routerLink]="['/project-detail', project.id]">
+        <mat-card-header class="card-content">
+          <div class="project-left">
+            <mat-card-title class="project-title">{{project.title}}</mat-card-title>
+            <mat-card-subtitle class="project-description">{{project.description}}</mat-card-subtitle>
+          </div>
+          <div class="project-right">
+            <div class="icons">
+              <button mat-icon-button>
+                <mat-icon svgIcon="add-user" class="feat-icon"></mat-icon>
+              </button>
+              <button mat-icon-button>
+                <mat-icon svgIcon="detail" class="feat-icon"></mat-icon>
+              </button>
+              <button mat-icon-button>
+                <mat-icon svgIcon="leave" class="feat-icon"></mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-card-header>
+      </mat-card>
+    </div>
+  </mat-list>
+</div>

@@ -3,6 +3,6 @@ package org.angularbaby.ostrich.request;
 import lombok.Data;
 
 @Data
-public class TaskRequest {
-    private String content;
+public class ToggleTaskRequest {
+    private Boolean status;
 }

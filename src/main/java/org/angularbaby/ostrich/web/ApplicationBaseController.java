@@ -6,6 +6,10 @@ import org.angularbaby.ostrich.repository.TaskGroupsRepository;
 import org.angularbaby.ostrich.repository.TasksRepository;
 import org.angularbaby.ostrich.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.session.SessionProperties;
+import org.springframework.data.redis.core.RedisKeyValueTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +30,9 @@ public class ApplicationBaseController {
 
     @Autowired
     protected HttpServletRequest context;
+
+    @Autowired
+    protected StringRedisTemplate redisTemplate;
 
     User currentUser() {
         if (this.user != null) {

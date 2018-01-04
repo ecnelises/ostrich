@@ -61,7 +61,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
             // Parse JSON Payload.
             Map<String, Object> payload = JsonParserFactory.getJsonParser().parseMap(jsonPayload);
-            Date expire = new Date((long)payload.getOrDefault("exp", 0L));
+            Date expire = new Date(Long.valueOf(String.valueOf(payload.get("exp"))) * 1000);
             if (expire.before(new Date())) {
                 return false;
             }

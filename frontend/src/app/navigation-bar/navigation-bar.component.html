@@ -1,0 +1,25 @@
+<div class="toolbar-wrapper">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Ostrich</span>
+      <span class="toolbar-spacer"></span>
+      <button mat-button>日历</button>
+      <button mat-button>文件</button>
+      <button mat-button [matMenuTriggerFor]="appMenu">我</button>
+      <mat-menu #appMenu="matMenu">
+        <button mat-menu-item>
+          <!-- <mat-icon>dialpad</mat-icon> -->
+          <span>个人中心</span>
+        </button>
+        <button mat-menu-item>
+          <!-- <mat-icon>voicemail</mat-icon> -->
+          <span>邀请新成员</span>
+        </button>
+        <button mat-menu-item>
+          <!-- <mat-icon>退出登录</mat-icon> -->
+          <span>退出登录</span>
+        </button>
+      </mat-menu> 
+    </mat-toolbar-row>
+  </mat-toolbar>
+  </div>
