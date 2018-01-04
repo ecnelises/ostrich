@@ -29,9 +29,10 @@ export class NotificationComponent implements OnInit {
   }
 
   ngOnInit() {
+    let that = this;
     this.ns.getNotifications()
       .then(res => {
-        console.log(res);
+        that.notifications = res['notifications'];
       })
   }
 

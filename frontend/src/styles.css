@@ -1506,3 +1506,15 @@ be a descendant of the grid when it is being dragged.
   background-color: #eee;
 }
 
+notification-sender {
+  margin-left: 10px;
+  margin-right: 8px;
+  font-size: 16pt;
+  font-weight: 600;
+}
+
+notification-message {
+  font-size: 16pt;
+  margin-left: 10px;
+  font-weight: 400;
+}

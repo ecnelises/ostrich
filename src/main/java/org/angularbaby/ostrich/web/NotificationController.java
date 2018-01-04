@@ -27,9 +27,9 @@ public class NotificationController extends ApplicationBaseController{
         Map<String, Object> object = parser.parseMap(param);
 
         User userId = currentUser();
-
         User sender = currentUser();
-        String message = (String)object.get("message");
+//        String message = (String)object.get("message");
+        String message = "hello";
 
         try {
             Notification notification = new Notification(userId, sender, message);
