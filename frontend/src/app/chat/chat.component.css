@@ -50,9 +50,12 @@ body:before {
 
 .form-group {
   margin-bottom: 15px;
+  display: flex;
+  align-items: center;
 }
 
 input {
+  margin: auto;
   padding-left: 10px;
   outline: none;
 }
@@ -162,6 +165,10 @@ button.accent {
   padding: 20px;
 }
 
+#message {
+  width: 350px;
+}
+
 #chat-page ul li {
   line-height: 1.5rem;
   padding: 10px 20px;
@@ -202,7 +209,7 @@ button.accent {
 
 #messageForm .input-group input {
   float: left;
-  width: calc(100% - 85px);
+  width: 400px;
 }
 
 #messageForm .input-group button {
@@ -230,4 +237,8 @@ button.accent {
   position: absolute;
   top: 65px;
   width: 100%;
+}
+
+mat-form-field {
+  width: 150px;
 }

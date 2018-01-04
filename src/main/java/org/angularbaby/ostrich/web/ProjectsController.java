@@ -117,5 +117,4 @@ public class ProjectsController extends ApplicationBaseController {
 
     @Autowired
     private MailingMessageSender mailSender;
-
 }

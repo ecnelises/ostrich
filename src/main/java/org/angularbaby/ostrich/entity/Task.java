@@ -61,6 +61,54 @@ public class Task {
     @JoinColumn(name = "task_group_id")
     private TaskGroup taskGroup;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setDone(Boolean done) {
+        this.done = done;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Set<Task> getDependencies() {
+        return dependencies;
+    }
+
+    public void setDependencies(Set<Task> dependencies) {
+        this.dependencies = dependencies;
+    }
+
+    public TaskGroup getTaskGroup() {
+        return taskGroup;
+    }
+
+    public void setTaskGroup(TaskGroup taskGroup) {
+        this.taskGroup = taskGroup;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User creator;

@@ -6,13 +6,16 @@ export class CalendarService{
   response: any;
   tasks: any;
 
-  constructor(private http:HttpClient) {
+  constructor(private http: HttpClient) {
 
   }
 
   getData() {
-    return this.http.get("/api/events/index")
-      .toPromise();
+    return this.http.get("/api/events/index",
+      {
+        headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}
+      }
+      ).toPromise();
   }
 
   removeEvent(eventId: number) {
@@ -24,7 +27,16 @@ export class CalendarService{
     ).toPromise();
   }
 
-  createEvent(title: String, content: String, startTime :String, endTime :String, remindTime :String) {
+  findEvent(eventId: number) {
+    return this.http.get("/api/events/find", {
+        params: {
+          eventId: eventId.toString()
+        }
+      }
+    ).toPromise();
+  }
+
+  createEvent(title: String, content: String, startTime: String, endTime: String, remindTime :String) {
     console.log("AA" + startTime);
     return this.http.post("/api/events/create", {
         title: title.toString(),
@@ -32,6 +44,8 @@ export class CalendarService{
         startTime: startTime.toString(),
         endTime: endTime.toString(),
         remindTime: remindTime.toString()
+      }, {
+        headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}
       }
     ).toPromise();
   }

@@ -3,8 +3,10 @@
     <mat-toolbar-row>
       <span class="app-name">Ostrich</span>
       <span class="toolbar-spacer"></span>
-      <button mat-button>日历</button>
-      <button mat-button>文件</button>
+      <a href="/#/notification" mat-button>通知</a>
+      <a href="/#/chat" mat-button>会话</a>
+      <a href="/#/calendar" mat-button>日历</a>
+      <a href="/#/files" mat-button>文件</a>
       <button mat-button [matMenuTriggerFor]="appMenu">我</button>
       <mat-menu #appMenu="matMenu">
         <button mat-menu-item [routerLink]="['/projects']">
@@ -19,7 +21,7 @@
           <!-- <mat-icon>退出登录</mat-icon> -->
           <span>退出登录</span>
         </button>
-      </mat-menu> 
+      </mat-menu>
     </mat-toolbar-row>
   </mat-toolbar>
   </div>

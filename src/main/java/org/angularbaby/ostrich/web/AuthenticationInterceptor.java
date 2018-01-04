@@ -56,6 +56,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
             Algorithm algorithm = Algorithm.HMAC256(JwtConfig.getSecret());
             JWTVerifier verifier = JWT.require(algorithm).withIssuer("ostrich").build();
             String token = authString.substring("Bearer".length()).trim();
+            System.out.println(token);
             DecodedJWT jwt = verifier.verify(token);
             String jsonPayload = new String(Base64.getDecoder().decode(jwt.getPayload()), StandardCharsets.UTF_8);
 

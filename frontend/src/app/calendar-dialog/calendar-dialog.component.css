@@ -1,0 +1,21 @@
+.width {
+  width: 90%;
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#button {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+
+button {
+  margin: 10px;
+}

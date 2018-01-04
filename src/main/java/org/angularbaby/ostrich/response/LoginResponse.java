@@ -8,9 +8,11 @@ import java.util.Date;
 public class LoginResponse {
     private String token;
     private Date expire;
+    private Long userId;
 
-    public LoginResponse(String token, Date expire) {
+    public LoginResponse(String token, Date expire, Long userId) {
         this.token = token;
         this.expire = expire;
+        this.userId = userId;
     }
 }
