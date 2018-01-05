@@ -14,7 +14,7 @@ import { MyFile } from './MyFile';
 
 export class FileComponent implements OnInit{
   title = 'File Uploader!';
-  public url:string = 'http://localhost:8080';
+  public url:string = 'http://localhost:4200';
   public uploader:FileUploader = new FileUploader({url: this.url});
 
   constructor(private fileService: FileService){ }
