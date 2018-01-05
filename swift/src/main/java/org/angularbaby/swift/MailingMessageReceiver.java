@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+// 使用名为 mailing 的消息队列，请先于 RabbitMQ 管理控制台中创建并基于用户权限
 @Component
 @RabbitListener(queues = "mailing")
 public class MailingMessageReceiver {

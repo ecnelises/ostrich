@@ -1,3 +1,5 @@
+// 项目中引入的模块都在这里，包括自定义组件
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
