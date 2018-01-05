@@ -5,11 +5,10 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * 生成随机字符串
+ */
 public class RandomString {
-
-    /**
-     * Generate a random string.
-     */
     public String nextString() {
         for (int idx = 0; idx < buf.length; ++idx)
             buf[idx] = symbols[random.nextInt(symbols.length)];
@@ -38,25 +37,15 @@ public class RandomString {
         this.buf = new char[length];
     }
 
-    /**
-     * Create an alphanumeric string generator.
-     */
     public RandomString(int length, Random random) {
         this(length, random, alphanum);
     }
 
-    /**
-     * Create an alphanumeric strings from a secure generator.
-     */
     public RandomString(int length) {
         this(length, new SecureRandom());
     }
 
-    /**
-     * Create session identifiers.
-     */
     public RandomString() {
         this(21);
     }
-
 }

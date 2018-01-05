@@ -17,7 +17,7 @@ import {NotificationService} from "./notification/notification.service";
 
 export class AppComponent implements OnInit {
   private serverUrl = 'http://127.0.0.1:8080/ws'
-  private stompClient;
+  private stompClient
 
   constructor(public as: AppService, private router: Router,  private snackBar: MatSnackBar) {
     this.initializeWebSocketConnection(localStorage.getItem('userId'));
@@ -41,5 +41,9 @@ export class AppComponent implements OnInit {
           });
       });
     });
+  }
+
+  loggedIn() {
+    return localStorage.getItem('token') != null
   }
 }

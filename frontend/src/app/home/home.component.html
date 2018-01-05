@@ -1,4 +1,10 @@
-<h1>Ostrich</h1>
-<p>Ostrich 是一个团队协作平台。</p>
-<a [routerLink]="['/login']">登录</a>
-<a [routerLink]="['/register']">注册</a>
+<div class="content">
+  <div class="intro-wrapper">
+    <h1 class="title">Ostrich</h1>
+    <p class="description">欢迎来到 Ostrich，Ostrich 是一个超凡的团队协作平台。</p>
+    <div class="links">
+      <a mat-raised-button color="primary" [routerLink]="['/login']">登录</a>
+      <a mat-raised-button [routerLink]="['/register']">注册</a>
+    </div>
+  </div>
+</div>

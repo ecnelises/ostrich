@@ -74,13 +74,13 @@ public class ProjectsController extends ApplicationBaseController {
 
     @NeedsAuthentication
     @RequestMapping(value = "/{id}/invite", method = RequestMethod.POST)
-    public ResponseEntity<String> invitePeople(@PathVariable("id") Long id, @RequestBody List<String> emails) {
+    public ResponseEntity<String> invitePeople(@PathVariable("id") Long id, @RequestBody List<String> emails, @RequestHeader String host) {
         Project project = projectsRepository.findOne(id);
         List<User> members = project.getMembers().stream().collect(Collectors.toList());
         List<User> users = usersRepository.findUsersByEmail(emails);
         users.stream().filter(user -> !members.contains(user)).forEach(user -> {
             final String expectedKey = String.format("invproj-%d-%d", id, user.getId());
-            mailSender.sendInvitation(project, user.getEmail());
+            mailSender.sendInvitation(project, user.getEmail(), host);
             redisTemplate.opsForValue().set(expectedKey, "1");
         });
         return new ResponseEntity<>("", HttpStatus.CREATED);

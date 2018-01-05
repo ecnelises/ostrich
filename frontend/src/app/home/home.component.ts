@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger,style,transition,animate,keyframes,query,stagger,state } from '@angular/animations';
 import { HomeService } from './home.service'
+import { Router } from '@angular/router';
+import { MatButton } from '@angular/material'
 
 @Component({
   selector: 'app-home',
@@ -11,5 +13,11 @@ import { HomeService } from './home.service'
 })
 
 export class HomeComponent implements OnInit {
-  ngOnInit() {}
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    if (localStorage.getItem('token')) {
+      this.router.navigateByUrl('/projects')
+    }
+  }
 }

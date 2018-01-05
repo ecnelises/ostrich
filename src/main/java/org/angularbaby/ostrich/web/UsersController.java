@@ -12,22 +12,19 @@ import org.angularbaby.ostrich.service.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
 public class UsersController extends ApplicationBaseController {
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest request, @RequestHeader String host) {
         User user = new User(request.getEmail(), request.getPassword(), request.getNickname());
         usersRepository.save(user);
         String key = (new RandomString(24)).nextString();
         redisTemplate.opsForValue().set("cfm-" + key, "1");
-        this.sender.sendConfirmation(user, user.getEmail(), key);
+        this.sender.sendConfirmation(user, user.getEmail(), key, host);
         return new ResponseEntity<>(new RegisterResponse(user.getEmail()), HttpStatus.CREATED);
     }
 
