@@ -23,7 +23,7 @@ const projectRoutes: Routes = [
 ]
 
 const routes: Routes = [
-  { path: '', component: AppComponent, pathMatch: 'full' },
+  { path: '', redirectTo: '/introduction', pathMatch: 'full' },
   { path: 'register', component: RegisterComponent },
   { path: 'introduction', component: HomeComponent },
   { path: 'login', component: LoginComponent },

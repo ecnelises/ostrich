@@ -3,10 +3,10 @@
     <mat-toolbar-row>
       <span class="app-name">Ostrich</span>
       <span class="toolbar-spacer"></span>
-      <a href="/#/notification" mat-button>通知</a>
-      <a href="/#/chat" mat-button>会话</a>
-      <a href="/#/calendar" mat-button>日历</a>
-      <a href="/#/files" mat-button>文件</a>
+      <a [routerLink]="['/notification']" mat-button>通知</a>
+      <a [routerLink]="['/chat']" mat-button>会话</a>
+      <a [routerLink]="['/calendar']" mat-button>日历</a>
+      <a [routerLink]="['/files']" mat-button>文件</a>
       <button mat-button [matMenuTriggerFor]="appMenu">我</button>
       <mat-menu #appMenu="matMenu">
         <button mat-menu-item [routerLink]="['/projects']">
