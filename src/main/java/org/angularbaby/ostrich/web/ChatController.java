@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/chats", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -17,18 +18,22 @@ public class ChatController extends ApplicationBaseController{
     @NeedsAuthentication
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(@RequestParam(name = "subjectId") Long id) {
-        System.out.println(id);
-        List<User> groupmates = projectsRepository.findOne(id).getMembers();
 
-        JSONObject test = new JSONObject();
-
-        for(Iterator<User> iterator = groupmates.iterator(); iterator.hasNext();){
-            test.put("t", iterator.next());
+        List<User> groupmates = projectsRepository.findOne(id).getMembers().stream().collect(Collectors.toList());
+        List<Long> longs = new ArrayList<Long>();
+        List<String> strings = new ArrayList<String>();
+        for (Iterator<User> iterator = groupmates.iterator(); iterator.hasNext();){
+            User tmpUser = iterator.next();
+            if (tmpUser != currentUser()) {
+                longs.add(tmpUser.getId());
+                strings.add(tmpUser.getNickname());
+            }
         }
+
         return new JSONObject()
                 .put("userId", currentUser().getId())
-//                .put("groupmates", )
-                .put("test", test.toString())
+                .put("groupIds", longs)
+                .put("groupNicknames", strings)
                 .toString();
     }
 }

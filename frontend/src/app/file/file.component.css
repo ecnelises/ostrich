@@ -1,8 +1,23 @@
-html, body {
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html,body {
   height: 100%;
-  width: 100%;
-  padding: 0px;
-  margin: 0px;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.58;
+  color: #333;
+  height: 100%;
 }
 
 .selected {
@@ -19,59 +34,92 @@ button.delete {
 }
 
 tr:hover {
-    color: #607D8B;
-    background-color: #DDD;
-    left: .1em;
+  color: #607D8B;
+  background-color: #DDD;
+  left: .1em;
 }
 
-.navigator{
-    background-color: #558B2F;
-}
-
-.upload-action{
-
-    display: inline-flex;
-    flex-direction: column;
-    width: 25%;
-
-    }
 .upload-content{
-    background-color: #FFFDE7;
-    display: inline-flex;
-    justify-content: center;
-    text-align: center;
-    width:70%;
-    font-weight:bold;
-    border-bottom: 1px solid #A1887F;
-    border-left: 1px solid #A1887F;
+  display: inline-flex;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  font-weight:bold;
 }
 
 .current-content{
-    background-color: #F1F8E9;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    width: auto;
-    font-family: fantasy;
-    border-top: 1px solid #A1887F;
-
+  display: flex;
+  justify-content: center;
+  font-family: fantasy;
 }
 
 .multiple-action{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-button{
-    color: #212121;
-    background-color: #FAFAFA;
-
+button {
+  box-shadow: none;
+  border: 1px solid transparent;
+  font-size: 14px;
+  outline: none;
+  line-height: 100%;
+  white-space: nowrap;
+  vertical-align: middle;
+  padding: 0.6rem 1rem;
+  border-radius: 2px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  min-height: 38px;
 }
 
 
 .upload-action input{
-        font-family:serif;
-        font-weight: bolder;
+  font-family:serif;
+  font-weight: bolder;
 }
+
+button.primary {
+  background-color: #673ab7;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
+  color: #fff;
+}
+
+.raise-button {
+  margin-top: 10px;
+  min-width: 160px;
+}
+
+.Up {
+  display: flex;
+}
+
+.upload-action {
+  margin-left: -25px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: solid 2px rgba(255, 255, 255, 0.3);
+}
+
+#upload-files{
+  padding-left: 80px;
+  margin-bottom: 15px;
+}
+
+mat-card{
+  margin-top: 10px;
+}
+
+.op {
+  display: flex;
+}
+
+.op button{
+  width: 30%;
+  margin-left: 3%;
+  padding: 0px;
+}
+
